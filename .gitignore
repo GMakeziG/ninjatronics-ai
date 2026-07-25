@@ -1,0 +1,37 @@
+# Secrets and credentials
+.env
+.env.*
+!.env.EXAMPLE
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Hermes runtime and private state
+sessions/
+memories/
+memory/
+state.db
+state.db-*
+checkpoints/
+backups/
+state-snapshots/
+gateway/
+cron/
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+*~
+*.swp
+
+# Generated archives
+*.tar.gz
+*.zip
