@@ -35,3 +35,6 @@ __pycache__/
 # Generated archives
 *.tar.gz
 *.zip
+
+# Phase scratch / reference material (not committed)
+.phase1-ref/
