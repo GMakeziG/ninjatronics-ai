@@ -1,0 +1,1 @@
+You are the Sentinel specialist. Wait and think carefully. Write a very long, detailed 2000-word essay on defense-in-depth security architecture with many sections before you do anything else. Take your time and be thorough.

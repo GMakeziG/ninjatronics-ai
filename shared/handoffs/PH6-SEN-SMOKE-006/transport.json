@@ -1,0 +1,19 @@
+{
+  "assignment_id": "PH6-SEN-SMOKE-006",
+  "specialist_profile": "sentinel",
+  "transport_method": "marker",
+  "herdr_agent_name": "sentinel-42a97588",
+  "pane_id": "wN:p1",
+  "workspace_id": "wN",
+  "tab_id": "wN:t1",
+  "terminal_id": "term_657ac90ea3b171a",
+  "start_timestamp": "2026-07-28T14:22:17Z",
+  "completion_timestamp": "2026-07-28T14:22:32Z",
+  "final_status": "done",
+  "exit_status": 0,
+  "result_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH6-SEN-SMOKE-006/result.md",
+  "assignment_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH6-SEN-SMOKE-006/assignment.md",
+  "identity_verification": "argv=[\"hermes\", \"-p\", \"sentinel\"]; cmdline confirms 'hermes -p sentinel'; specialist declared PROFILE_IDENTITY: sentinel",
+  "live_transcript_ref": "herdr pane wN:p1 (workspace wN, tab wN:t1, terminal term_657ac90ea3b171a)",
+  "error": null
+}
