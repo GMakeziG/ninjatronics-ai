@@ -127,7 +127,7 @@ cat shared/handoffs/<ID>/result.md
 Failure-mode unit tests (no Herdr required) live in `scripts/test-dispatch.sh`:
 
 ```bash
-scripts/test-dispatch.sh    # 16 checks: arg/profile validation + marker protocol
+scripts/test-dispatch.sh    # 18 checks: arg/profile validation + marker protocol
 ```
 
 ## Fallback

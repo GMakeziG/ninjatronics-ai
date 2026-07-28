@@ -1,4 +1,4 @@
-    Assignment ID: PH6-SEN-SMOKE-001
+    Assignment ID: PH6-SEN-SMOKE-006
     Status: Complete
     Objective: Confirm Nova→Herdr→Sentinel transport.
     Scope reviewed: Read-only handoff validation.
