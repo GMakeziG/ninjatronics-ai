@@ -1,0 +1,19 @@
+{
+  "assignment_id": "PH6-TESTD-SEN-001",
+  "specialist_profile": "sentinel",
+  "transport_method": "marker",
+  "herdr_agent_name": "sentinel-6b6b099d",
+  "pane_id": "wR:p1",
+  "workspace_id": "wR",
+  "tab_id": "wR:t1",
+  "terminal_id": "term_657ac9e4ab0ce1d",
+  "start_timestamp": "2026-07-28T14:26:01Z",
+  "completion_timestamp": "2026-07-28T14:26:27Z",
+  "final_status": "done",
+  "exit_status": 0,
+  "result_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH6-TESTD-SEN-001/result.md",
+  "assignment_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH6-TESTD-SEN-001/assignment.md",
+  "identity_verification": "argv=[\"hermes\", \"-p\", \"sentinel\"]; cmdline confirms 'hermes -p sentinel'; specialist declared PROFILE_IDENTITY: sentinel",
+  "live_transcript_ref": "herdr pane wR:p1 (workspace wR, tab wR:t1, terminal term_657ac9e4ab0ce1d)",
+  "error": null
+}

@@ -1,0 +1,2 @@
+    Status: Complete
+    Summary: A durable ADR must record the timestamped context, problem, scope, decision, decision owner, alternatives considered, rationale, consequences, risks, and review or supersession conditions. It must link to verifiable supporting evidence and validation artifacts so an independent auditor can trace why the decision was made, confirm that it was implemented, and understand who maintains it.

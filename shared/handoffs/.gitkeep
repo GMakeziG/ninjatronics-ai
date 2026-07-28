@@ -1,0 +1,2 @@
+# Keep the handoffs directory tracked. Per-assignment result artifacts
+# (assignment.md, transport.json, result.md) are written here at dispatch time.

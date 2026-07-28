@@ -1,0 +1,19 @@
+{
+  "assignment_id": "PH6-TESTD-ARC-001",
+  "specialist_profile": "archivist",
+  "transport_method": "marker",
+  "herdr_agent_name": "archivist-bdfb07d8",
+  "pane_id": "wS:p1",
+  "workspace_id": "wS",
+  "tab_id": "wS:t1",
+  "terminal_id": "term_657aca1ae6d4f1e",
+  "start_timestamp": "2026-07-28T14:26:58Z",
+  "completion_timestamp": "2026-07-28T14:27:15Z",
+  "final_status": "done",
+  "exit_status": 0,
+  "result_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH6-TESTD-ARC-001/result.md",
+  "assignment_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH6-TESTD-ARC-001/assignment.md",
+  "identity_verification": "argv=[\"hermes\", \"-p\", \"archivist\"]; cmdline confirms 'hermes -p archivist'; specialist declared PROFILE_IDENTITY: archivist",
+  "live_transcript_ref": "herdr pane wS:p1 (workspace wS, tab wS:t1, terminal term_657aca1ae6d4f1e)",
+  "error": null
+}

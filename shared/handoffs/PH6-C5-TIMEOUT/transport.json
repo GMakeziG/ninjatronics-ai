@@ -1,0 +1,23 @@
+{
+  "assignment_id": "PH6-C5-TIMEOUT",
+  "specialist_profile": "sentinel",
+  "transport_method": "marker",
+  "herdr_agent_name": "sentinel-9262fd42",
+  "pane_id": "wQ:p1",
+  "workspace_id": "wQ",
+  "tab_id": "wQ:t1",
+  "terminal_id": "term_657ac94cf8f901c",
+  "start_timestamp": "2026-07-28T14:23:22Z",
+  "completion_timestamp": "2026-07-28T14:23:36Z",
+  "final_status": "failed",
+  "exit_status": 124,
+  "result_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH6-C5-TIMEOUT/result.md",
+  "assignment_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH6-C5-TIMEOUT/assignment.md",
+  "identity_verification": "argv=[\"hermes\", \"-p\", \"sentinel\"]",
+  "live_transcript_ref": "herdr pane wQ:p1 (workspace wQ, tab wQ:t1, terminal term_657ac94cf8f901c)",
+  "error": {
+    "code": "timeout",
+    "stderr_excerpt": "{\"error\":{\"code\":\"timeout\",\"message\":\"timed out waiting for agent status\"},\"id\":\"cli:agent:prompt\"}",
+    "agent_or_session_state": "prompt-error:timeout"
+  }
+}
