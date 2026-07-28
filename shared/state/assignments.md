@@ -128,9 +128,66 @@ This table provides the current state of all assignments.
 
 | Assignment ID | Title | Owner | Priority | Status | Depends on | Reviewer | Approval required | Last updated |
 |---|---|---|---|---|---|---|---|---|
-| — | No assignments recorded yet | — | — | — | — | — | — | — |
+| PH6-SEN-001 | Independent security review of feat/audiobookshelf | Sentinel (fallback: delegated subagent deleg_a47f68e5) | High | Reviewed — accepted by Nova (verdict PASS; evidence independently re-validated) | None | Sentinel | Gerso (merge gate) | 2026-07-28 |
+| PH6-COD-001 | Remediate Sentinel BLOCKER/HIGH findings on feat/audiobookshelf | Codex (fallback: delegated subagent) | High | Cancelled (no BLOCKER/HIGH findings) | PH6-SEN-001 | Sentinel (re-review) | Gerso (merge gate) | 2026-07-28 |
+| PH6-ARC-001 | Documentation for Audiobookshelf deployment | Archivist (fallback: delegated subagent deleg_1d2cb368) | Normal | Complete — accepted by Nova (commit 7cf3fc7; evidence validated) | PH6-SEN-001 | Nova | None | 2026-07-28 |
+| PH6-CLD-001 | Herdr v0.7.5 contract discovery for Nova→Herdr→specialist transport | Claude Code (runtime; deleg_1cd1fe0e) | High | Complete — accepted by Nova (contract proven end-to-end via live probe; evidence in transcript) | None | Nova | Gerso (plan approval before Phase 2) | 2026-07-28 |
+| PH6-COD-002 | Implement Nova→Herdr→specialist transport (dispatch-specialist.sh + libs + docs); optional `hermes -z` spike | Codex (runtime) | High | Complete — Nova-reviewed & live-validated (TEST A/B/C/D pass; Nova fixed 3 integration bugs: stderr error-parse, whole-line markers, teardown verify) | PH6-CLD-001 | Nova | Gerso (merge gate) | 2026-07-28 |
 
-Remove the placeholder row when the first real assignment is added.
+---
+
+## Phase 6 Herdr transport — live validation evidence (PH6-COD-002)
+
+Real Nova→Herdr→specialist launches through `scripts/dispatch-specialist.sh`.
+All ran real named Hermes profiles (identity verified via argv + live cmdline +
+specialist-declared PROFILE_IDENTITY). No delegate_task fallback in any run.
+Artifacts persist under `shared/handoffs/<id>/`.
+
+| Test | Assignment | Profile | Herdr pane / ws / tab / terminal | Exit | Result |
+|---|---|---|---|---|---|
+| A (Sentinel) | PH6-SEN-SMOKE-006 | sentinel | wN:p1 / wN / wN:t1 / term_657ac90ea3b171a | 0 | result.md 857B; identity 3-way; teardown verified |
+| C (timeout) | PH6-C5-TIMEOUT | sentinel | wQ:p1 / wQ / wQ:t1 / term_657ac94cf8f901c | 124 | error.code=timeout recorded; agent torn down |
+| C (validation) | (unit) invalid profile→64, missing prompt→66, unsafe id→64, bad timeout→2 | — | — | 64/66/2 | scripts/test-dispatch.sh: 16/16 pass |
+| D (Sentinel) | PH6-TESTD-SEN-001 | sentinel | wR:p1 / wR / wR:t1 / term_657ac9e4ab0ce1d | 0 | REMEDIATION_REQUIRED: no; Nova consumed |
+| D (Archivist) | PH6-TESTD-ARC-001 | archivist | wS:p1 / wS / wS:t1 / term_657aca1ae6d4f1e | 0 | decision-record summary; Nova consumed |
+
+Conditional routing (TEST D): Nova dispatched Sentinel → consumed result →
+extracted "REMEDIATION_REQUIRED: no" → correctly did NOT dispatch Codex →
+dispatched Archivist to document → consumed summary. Real Herdr transport both
+legs.
+
+`-z` spike verdict: passes a,b,c,d,e,g,h but FAILS f (not visible/manageable
+through Herdr — headless subprocess). Marker-based interactive transport
+retained as PRIMARY; `-z` kept as secondary (`--transport zexec`).
+
+### Nova re-verification pass + chrome-strip remediation (2026-07-28)
+
+Nova re-verified the transport against the currently-running Herdr v0.7.5
+server before commit. Live syntax re-confirmed via `herdr --help` (workspace
+create / agent start / agent prompt / pane wait-output all match the wrappers).
+
+| Test | Assignment | Profile | Herdr pane / ws / tab / terminal | Exit | Result |
+|---|---|---|---|---|---|
+| Re-verify (post-fix) | PH6-ARC-SMOKE-004 | archivist | wW:p1 / wW / wW:t1 / term_657b04410c5bd21 | 0 | done; identity 3-way; teardown verified; result body CLEAN (no chrome). |
+
+A pre-fix re-verification run first surfaced the TUI cost-cap line leaking into
+the result body; its probe artifact was discarded after the fix and is not
+retained. PH6-ARC-SMOKE-004 above is the retained, post-fix Archivist
+live-success evidence.
+
+Evidence set retained in-repo (trimmed to unique required behavior; superseded
+and duplicate smoke runs pruned): PH6-SEN-SMOKE-006 (Sentinel live success),
+PH6-ARC-SMOKE-004 (Archivist live success, clean body), PH6-C5-TIMEOUT
+(timeout handling → exit 124), PH6-TESTD-SEN-001 + PH6-TESTD-ARC-001
+(conditional routing across both legs).
+
+Remediation: added `marker_strip_chrome` in `scripts/lib/markers.sh`, invoked
+from `extract_and_finish` in `dispatch-specialist.sh`, to drop interleaved
+Hermes TUI chrome (the `• You've used $X of your $Y cap` status bar) that can
+render between the result markers in the rendered scrollback. Marker
+validation and exit-code logic are unchanged; only the persisted evidence body
+is scrubbed. New unit test (section D) added to `scripts/test-dispatch.sh`;
+suite now **18/18 pass**. No delegate_task used in any run.
 
 ---
 
@@ -322,10 +379,10 @@ Nova must still verify the full ledger before minting a new ID.
 |---|---:|---:|
 | PH6-NOV | 000 | 001 |
 | PH6-SHI | 000 | 001 |
-| PH6-SEN | 000 | 001 |
-| PH6-ARC | 000 | 001 |
-| PH6-CLD | 000 | 001 |
-| PH6-COD | 000 | 001 |
+| PH6-SEN | 001 | 002 |
+| PH6-ARC | 001 | 002 |
+| PH6-CLD | 001 | 002 |
+| PH6-COD | 002 | 003 |
 
 Update this table whenever a new assignment is created.
 

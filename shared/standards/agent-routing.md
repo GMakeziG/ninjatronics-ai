@@ -107,6 +107,48 @@ Example:
 - Codex may implement or test a bounded patch.
 - Nova coordinates and reviews the complete result.
 
+## Specialist transport (Sentinel and Archivist are LIVE via Herdr)
+
+Sentinel and Archivist are available as real named Hermes profiles launched
+through Herdr. Nova routes to them using the dispatcher, NOT delegate_task:
+
+- Security / compliance / risk / hardening review → `sentinel` profile.
+- Documentation / evidence / decision records / knowledge management →
+  `archivist` profile.
+
+Invocation (see `shared/standards/specialist-transport.md` and
+`docs/runbooks/specialist-dispatch.md`):
+
+```bash
+scripts/dispatch-specialist.sh \
+  --assignment <ID> \
+  --profile <sentinel|archivist> \
+  --prompt-file shared/handoffs/<ID>/assignment.md \
+  --timeout <seconds>
+```
+
+Nova's obligations when routing to a specialist:
+
+1. Write the assignment (per `shared/templates/assignment.md`) to the
+   prompt-file; the dispatcher persists a copy to `shared/handoffs/<ID>/`.
+2. Invoke the dispatcher. Consume the returned artifact at
+   `shared/handoffs/<ID>/result.md` (specialist-handoff format).
+3. Record the real Herdr identifiers (pane/workspace/tab/terminal), exit
+   status, and identity evidence from `shared/handoffs/<ID>/transport.json`
+   into the assignment ledger. A dispatch is not "dispatched" in the ledger
+   without this transport evidence.
+4. Validate the result (evidence real, markers clean, identity confirmed)
+   before advancing status. A nonzero dispatcher exit is a FAILED transport,
+   not a completed assignment.
+
+delegate_task is an EXPLICITLY DISCLOSED EMERGENCY FALLBACK ONLY. Use it for a
+specialist role solely when a real Herdr dispatch fails, and only after the
+real failure (exit code, stderr, agent/session state, transcript reference) is
+recorded in `transport.json` and the ledger. Any such fallback must be labeled
+in the ledger and the final report with: role simulated, runtime used, reason,
+and remaining independent review. A successful specialist run never uses
+delegate_task.
+
 ## Parallel work rules
 
 Parallel work is allowed only when:
