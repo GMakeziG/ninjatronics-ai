@@ -107,6 +107,70 @@ Example:
 - Codex may implement or test a bounded patch.
 - Nova coordinates and reviews the complete result.
 
+## Graphify (shared capability)
+
+Graphify is a shared repository-understanding tool, not a specialist profile and
+not a runtime. It builds a knowledge graph at `graphify-out/` (god nodes,
+community structure, cross-file relationships) and answers scoped questions
+without loading whole files. Any agent may use it; no one "owns" it as a domain.
+
+Graphify narrows the search scope. It does not replace direct source inspection
+for high-risk decisions. The responsible agent must verify important conclusions
+against the authoritative source files before acting on them. A Graphify answer
+is a lead, not evidence.
+
+Availability rule: Graphify is optional. Never block or fail work merely because
+`graphify-out/graph.json` is missing or stale — disclose the fallback to direct
+repository inspection (`search_files`, reading source) and proceed.
+
+### Core commands
+
+- `graphify query "<question>"` — scoped BFS answer to a repository question.
+- `graphify path "<A>" "<B>"` — relationship / shortest path between two nodes.
+- `graphify explain "<concept>"` — a node and its neighborhood in plain language.
+- `graphify affected "<X>"` — reverse traversal: what is impacted by X.
+- `graphify god-nodes` — the most connected architectural hubs.
+- `graphify update .` — AST-only graph refresh after meaningful code changes
+  (no LLM / no API cost).
+
+### Responsibilities by agent
+
+- Nova: owns orchestration and graph-freshness decisions (when to run
+  `graphify update .`), broad repository queries, impact/affected analysis, and
+  creation of scoped context for assignments. Nova records the exact Graphify
+  command used when it feeds graph output into an assignment.
+- Archivist: uses Graphify for ADR, RFC, runbook, documentation, and
+  evidence-traceability work — locating the components and relationships a
+  record must describe, then verifying against source.
+- Sentinel: uses Graphify for security boundaries, authentication paths, trust
+  relationships, dependency chains, and affected-component analysis — then
+  confirms every security-relevant conclusion against the actual source.
+- Shinobi: uses Graphify for Kubernetes, GitOps, deployment, infrastructure, and
+  configuration dependency analysis — then verifies against the real manifests.
+
+In all cases the graph scopes the investigation; the source files decide the
+outcome for any high-risk or security-relevant conclusion.
+
+### Generated-artifact policy
+
+`graphify-out/` is generated, locally reproducible output. Policy:
+
+| Artifact | Disposition | Rationale |
+|---|---|---|
+| `graphify-out/graph.json` | Gitignore (regenerate locally) | Large, churns on every code change, merge-conflict prone; reproducible via `graphify update .`. A union merge driver exists but adds ceremony for little gain here. |
+| `graphify-out/graph.html` | Gitignore | Large generated visualization; derived from `graph.json`. |
+| `graphify-out/GRAPH_REPORT.md` | Gitignore by default | Regenerable narrative report. May be attached to a specific handoff as a point-in-time review artifact when a decision depended on it. |
+| `graphify-out/wiki/` | Gitignore | Generated navigation; reproducible. |
+| `graphify-out/memory/` | Gitignore | Tool-internal state; may accumulate context. Treated like other Hermes runtime state (already ignored). |
+| `graphify-out/reflections/` | Gitignore | Tool-internal generated notes; not authoritative. |
+
+Default: ignore the whole `graphify-out/` tree. When a specific graph artifact
+materially supported a decision, copy that single file into the relevant
+`shared/handoffs/<ID>/` (or evidence index) as a dated review artifact rather
+than committing the live `graphify-out/` tree. Do not commit the whole tree, and
+do not commit `graph.json`: it can expose full repository structure, is large,
+and conflicts on merge.
+
 ## Specialist transport (Sentinel and Archivist are LIVE via Herdr)
 
 Sentinel and Archivist are available as real named Hermes profiles launched

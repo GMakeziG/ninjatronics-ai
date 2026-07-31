@@ -40,6 +40,17 @@ List anything explicitly excluded.
 
 List the documents, paths, decisions, logs, or prior outputs required.
 
+## Graphify context
+
+Optional. If Nova ran a Graphify command to scope this assignment, record it here:
+
+- Command run (exact): e.g. `graphify affected "<X>"` or `graphify query "<...>"`
+- Scoped output or summary (never paste `graph.json` or the whole graph)
+- Verification note: the assignee must confirm graph-derived findings against
+  the authoritative source files; the graph is a lead, not evidence.
+- If Graphify was unavailable or stale, state so and note the fallback to direct
+  repository inspection. Graphify availability is never a blocker.
+
 ## Constraints
 
 State the rules the assignee must follow.

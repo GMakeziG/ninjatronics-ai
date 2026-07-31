@@ -70,6 +70,33 @@ Because the whole point of this transport is a visible, managed shared
 workspace, `-z` is retained as a secondary/opt-in method (`--transport zexec`)
 and is NOT the default. The marker method remains primary.
 
+## Optional Graphify context phase (before dispatch)
+
+Graphify is a shared repository-understanding capability (see
+`shared/standards/agent-routing.md`). Before writing a specialist assignment,
+Nova MAY run a scoped Graphify command to bound the specialist's search and
+sharpen the assignment, then include the scoped result in the assignment.
+
+This phase is optional and must never block dispatch:
+
+1. Nova runs a scoped command — e.g. `graphify query "<question>"`,
+   `graphify path "<A>" "<B>"`, `graphify explain "<concept>"`, or
+   `graphify affected "<X>"` — appropriate to the specialist domain (Sentinel:
+   auth paths / trust boundaries / affected components; Archivist: components a
+   record must cover; Shinobi: deployment/config dependencies).
+2. Nova records the EXACT command used in the assignment (the assignment
+   template has a "Graphify context" section for this).
+3. Nova includes only the relevant scoped output or a short summary in the
+   assignment. Do NOT paste `graph.json` or the whole graph into a handoff.
+4. The specialist treats the graph output as a lead, not evidence, and VERIFIES
+   findings against the authoritative source files before relying on them.
+5. If `graphify-out/graph.json` is missing or stale, Nova does not fail or delay
+   dispatch: it discloses in the assignment that Graphify was unavailable and
+   the specialist should fall back to direct repository inspection.
+
+The dispatcher (`scripts/dispatch-specialist.sh`) is unchanged by this phase.
+Graphify context is carried entirely inside the assignment prompt-file.
+
 ## Result marker protocol
 
 - Each dispatch generates assignment-specific markers embedding the exact

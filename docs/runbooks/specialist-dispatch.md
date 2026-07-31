@@ -24,6 +24,24 @@ full contract and rationale.
 
 3. `python3` available (used for JSON parsing).
 
+## Optional: scope the assignment with Graphify first
+
+Before writing the prompt-file, Nova may run a scoped Graphify command to bound
+the specialist's search (see `shared/standards/agent-routing.md` and the
+"Optional Graphify context phase" in `shared/standards/specialist-transport.md`):
+
+```bash
+graphify query "which components read the cloudflared tunnel secret?"
+# or: graphify affected "cloudflared-tunnel-credentials"
+# or: graphify path "audiobookshelf" "cloudflared"
+```
+
+Record the exact command in the assignment's "Graphify context" section, paste
+only the scoped output or a short summary (never `graph.json`), and instruct the
+specialist to verify against source. If `graphify-out/graph.json` is absent or
+stale, skip this step, note the fallback to direct inspection in the assignment,
+and dispatch normally — Graphify availability is never a dispatch gate.
+
 ## Usage
 
 ```bash
