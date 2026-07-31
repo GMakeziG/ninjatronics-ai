@@ -38,3 +38,6 @@ __pycache__/
 
 # Phase scratch / reference material (not committed)
 .phase1-ref/
+
+# Graphify generated knowledge graph (regenerate with: graphify update .)
+graphify-out/
