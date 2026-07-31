@@ -126,13 +126,15 @@ Priority does not override approval gates or safety requirements.
 
 This table provides the current state of all assignments.
 
-| Assignment ID | Title | Owner | Priority | Status | Depends on | Reviewer | Approval required | Last updated |
-|---|---|---|---|---|---|---|---|---|
-| PH6-SEN-001 | Independent security review of feat/audiobookshelf | Sentinel (fallback: delegated subagent deleg_a47f68e5) | High | Reviewed — accepted by Nova (verdict PASS; evidence independently re-validated) | None | Sentinel | Gerso (merge gate) | 2026-07-28 |
-| PH6-COD-001 | Remediate Sentinel BLOCKER/HIGH findings on feat/audiobookshelf | Codex (fallback: delegated subagent) | High | Cancelled (no BLOCKER/HIGH findings) | PH6-SEN-001 | Sentinel (re-review) | Gerso (merge gate) | 2026-07-28 |
-| PH6-ARC-001 | Documentation for Audiobookshelf deployment | Archivist (fallback: delegated subagent deleg_1d2cb368) | Normal | Complete — accepted by Nova (commit 7cf3fc7; evidence validated) | PH6-SEN-001 | Nova | None | 2026-07-28 |
-| PH6-CLD-001 | Herdr v0.7.5 contract discovery for Nova→Herdr→specialist transport | Claude Code (runtime; deleg_1cd1fe0e) | High | Complete — accepted by Nova (contract proven end-to-end via live probe; evidence in transcript) | None | Nova | Gerso (plan approval before Phase 2) | 2026-07-28 |
-| PH6-COD-002 | Implement Nova→Herdr→specialist transport (dispatch-specialist.sh + libs + docs); optional `hermes -z` spike | Codex (runtime) | High | Complete — Nova-reviewed & live-validated (TEST A/B/C/D pass; Nova fixed 3 integration bugs: stderr error-parse, whole-line markers, teardown verify) | PH6-CLD-001 | Nova | Gerso (merge gate) | 2026-07-28 |
+|| Assignment ID | Title | Owner | Priority | Status | Depends on | Reviewer | Approval required | Last updated |
+||---|---|---|---|---|---|---|---|---|
+|| LAB-ABS-SEN-001 | Independent security review of PR #6 (Audiobookshelf GitOps) | Sentinel (live Herdr dispatch) | High | Complete — Nova-validated (verdict PASS WITH NOTES; transport exit 0; identity verified) | None | Nova | None — evidence artifact retained | 2026-07-28 |
+|| LAB-ABS-ARC-001 | Merge and cutover evidence checklist for Audiobookshelf PR #6 | Archivist (live Herdr dispatch) | High | Complete — Nova-validated (verdict Complete with findings; transport exit 0; identity verified; checklist + supporting doc evidence) | LAB-ABS-SEN-001 | Nova | None — evidence artifact retained | 2026-07-28 |
+|| PH6-SEN-001 | Independent security review of feat/audiobookshelf | Sentinel (fallback: delegated subagent deleg_a47f68e5) | High | Reviewed — accepted by Nova (verdict PASS; evidence independently re-validated) | None | Sentinel | Gerso (merge gate) | 2026-07-28 |
+|| PH6-COD-001 | Remediate Sentinel BLOCKER/HIGH findings on feat/audiobookshelf | Codex (fallback: delegated subagent) | High | Cancelled (no BLOCKER/HIGH findings) | PH6-SEN-001 | Sentinel (re-review) | Gerso (merge gate) | 2026-07-28 |
+|| PH6-ARC-001 | Documentation for Audiobookshelf deployment | Archivist (fallback: delegated subagent deleg_1d2cb368) | Normal | Complete — accepted by Nova (commit 7cf3fc7; evidence validated) | PH6-SEN-001 | Nova | None | 2026-07-28 |
+|| PH6-CLD-001 | Herdr v0.7.5 contract discovery for Nova→Herdr→specialist transport | Claude Code (runtime; deleg_1cd1fe0e) | High | Complete — accepted by Nova (contract proven end-to-end via live probe; evidence in transcript) | None | Nova | Gerso (plan approval before Phase 2) | 2026-07-28 |
+|| PH6-COD-002 | Implement Nova→Herdr→specialist transport (dispatch-specialist.sh + libs + docs); optional `hermes -z` spike | Codex (runtime) | High | Complete — Nova-reviewed & live-validated (TEST A/B/C/D pass; Nova fixed 3 integration bugs: stderr error-parse, whole-line markers, teardown verify) | PH6-CLD-001 | Nova | Gerso (merge gate) | 2026-07-28 |
 
 ---
 
@@ -375,14 +377,16 @@ This section provides a quick reference for the last ID used.
 
 Nova must still verify the full ledger before minting a new ID.
 
-| Prefix | Last used | Next candidate |
-|---|---:|---:|
-| PH6-NOV | 000 | 001 |
-| PH6-SHI | 000 | 001 |
-| PH6-SEN | 001 | 002 |
-| PH6-ARC | 001 | 002 |
-| PH6-CLD | 001 | 002 |
-| PH6-COD | 002 | 003 |
+|| Prefix | Last used | Next candidate |
+||---|---:|---:|
+|| LAB-ABS-SEN | 001 | 002 |
+|| LAB-ABS-ARC | 001 | 002 |
+|| PH6-NOV | 000 | 001 |
+|| PH6-SHI | 000 | 001 |
+|| PH6-SEN | 001 | 002 |
+|| PH6-ARC | 001 | 002 |
+|| PH6-CLD | 001 | 002 |
+|| PH6-COD | 002 | 003 |
 
 Update this table whenever a new assignment is created.
 
