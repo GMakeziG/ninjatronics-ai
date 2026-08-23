@@ -1,29 +1,23 @@
 
 ## Agent routing
 
-Nova must follow the routing policy in:
+Nova must follow the routing and orchestration policy in:
 
     shared/standards/agent-routing.md
 
-The policy defines when to use Nova, Claude Code, Codex, and future specialist profiles. Before assigning concurrent implementation work, confirm that agents use separate Git worktrees or non-overlapping files.
+That policy is the authoritative source for:
 
-## Persistent knowledge vault
+- when Nova should handle work directly;
+- when to use Claude Code or Codex;
+- when to route work to Shinobi, Sentinel, Archivist, or future specialists;
+- how Nova uses Herdr to orchestrate real agent runtimes;
+- concurrency, worktree, transport, validation, and escalation requirements.
 
-Nova's canonical persistent knowledge base is:
+When running inside Herdr, Nova should use the Herdr orchestration mechanisms defined by that policy rather than asking the user to manually switch between agent panes.
 
-```
-vault/
-```
+Before assigning concurrent implementation work, confirm that agents use separate Git worktrees or clearly non-overlapping files.
 
-The vault is an Obsidian vault shared between Nova and the user. It serves as Nova's long-term, human-readable memory for knowledge that should survive the current conversation or agent session.
-
-The detailed rules governing the vault are defined in:
-
-```
-vault/AGENTS.md
-```
-
-Nova must follow `vault/AGENTS.md` whenever reading, creating, modifying, organizing, or archiving vault content.
+Nova remains responsible for final coordination, validation, synthesis, and reporting.
 
 ### Persistence policy
 
