@@ -1,0 +1,23 @@
+{
+  "assignment_id": "PH0-ARC-001-R2",
+  "specialist_profile": "archivist",
+  "transport_method": "zexec",
+  "herdr_agent_name": "",
+  "pane_id": "",
+  "workspace_id": "",
+  "tab_id": "",
+  "terminal_id": "",
+  "start_timestamp": "2026-08-23T10:29:01Z",
+  "completion_timestamp": "2026-08-23T10:39:01Z",
+  "final_status": "failed",
+  "exit_status": 124,
+  "result_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH0-ARC-001-R2/result.md",
+  "assignment_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH0-ARC-001-R2/assignment.md",
+  "identity_verification": "",
+  "live_transcript_ref": "(zexec: direct subprocess, no herdr pane)",
+  "error": {
+    "code": "timeout",
+    "stderr_excerpt": "",
+    "agent_or_session_state": "zexec-timeout"
+  }
+}

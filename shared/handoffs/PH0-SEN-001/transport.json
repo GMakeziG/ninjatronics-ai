@@ -1,0 +1,19 @@
+{
+  "assignment_id": "PH0-SEN-001",
+  "specialist_profile": "sentinel",
+  "transport_method": "zexec",
+  "herdr_agent_name": "",
+  "pane_id": "",
+  "workspace_id": "",
+  "tab_id": "",
+  "terminal_id": "",
+  "start_timestamp": "2026-08-23T10:24:10Z",
+  "completion_timestamp": "2026-08-23T10:25:38Z",
+  "final_status": "done",
+  "exit_status": 0,
+  "result_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH0-SEN-001/result.md",
+  "assignment_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH0-SEN-001/assignment.md",
+  "identity_verification": "zexec: output references profile 'sentinel'",
+  "live_transcript_ref": "(zexec: direct subprocess, no herdr pane)",
+  "error": null
+}

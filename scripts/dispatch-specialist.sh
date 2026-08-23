@@ -23,6 +23,7 @@
 #     [--timeout <SECONDS>=600] \
 #     [--workdir <path>=repo root] \
 #     [--keep] \
+#     [--write] \
 #     [--transport <auto|marker|zexec>=auto]
 #
 set -euo pipefail
@@ -80,7 +81,7 @@ usage() {
 # Defaults + arg parsing (NO eval; explicit flag handling)
 # ---------------------------------------------------------------------------
 ASSIGNMENT=""; PROFILE=""; PROMPT_FILE=""
-TIMEOUT_S=600; WORKDIR="$REPO_ROOT"; KEEP=0; TRANSPORT="auto"
+TIMEOUT_S=600; WORKDIR="$REPO_ROOT"; KEEP=0; TRANSPORT="auto"; WRITE_ENABLED=0
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -90,6 +91,7 @@ while [ $# -gt 0 ]; do
     --timeout)     TIMEOUT_S="${2:-}"; shift 2 ;;
     --workdir)     WORKDIR="${2:-}"; shift 2 ;;
     --keep)        KEEP=1; shift ;;
+    --write)       WRITE_ENABLED=1; shift ;;
     --transport)   TRANSPORT="${2:-}"; shift 2 ;;
     -h|--help)     usage; exit "$EX_OK" ;;
     *)             usage; die "$EX_USAGE" "unknown argument: $1" ;;
@@ -222,11 +224,15 @@ run_zexec() {
   local begin end wrapped
   begin="$(marker_begin "$ASSIGNMENT")"; end="$(marker_end "$ASSIGNMENT")"
   # Wrap: require the handoff ONLY between markers, once.
-  wrapped="$(cat "$PROMPT_FILE")"$'\n\n'"IMPORTANT OUTPUT PROTOCOL: State your Hermes profile name. Then emit your FINAL specialist handoff (per shared/templates/specialist-handoff.md) EXACTLY ONCE. Put a line containing only the begin marker \"${begin}\" immediately before your handoff, and a line containing only the end marker \"${end}\" immediately after it. Emit each marker line only once and put NOTHING after the end-marker line. Read-only: make no changes."
+  if [ "$WRITE_ENABLED" -eq 1 ]; then
+    wrapped="$(cat "$PROMPT_FILE")"$'\n\n'"IMPORTANT OUTPUT PROTOCOL: State your Hermes profile name. Then emit your FINAL specialist handoff (per shared/templates/specialist-handoff.md) EXACTLY ONCE. Put a line containing only the begin marker \"${begin}\" immediately before your handoff, and a line containing only the end marker \"${end}\" immediately after it. Emit each marker line only once and put NOTHING after the end-marker line. You are AUTHORIZED to create and modify files in the working directory as specified in the assignment."
+  else
+    wrapped="$(cat "$PROMPT_FILE")"$'\n\n'"IMPORTANT OUTPUT PROTOCOL: State your Hermes profile name. Then emit your FINAL specialist handoff (per shared/templates/specialist-handoff.md) EXACTLY ONCE. Put a line containing only the begin marker \"${begin}\" immediately before your handoff, and a line containing only the end marker \"${end}\" immediately after it. Emit each marker line only once and put NOTHING after the end-marker line. Read-only: make no changes."
+  fi
   M_TRANSCRIPT="(zexec: direct subprocess, no herdr pane)"
-  log "zexec: hermes -p $PROFILE -z (timeout ${TIMEOUT_S}s)"
+  log "zexec: hermes -p $PROFILE -z (timeout ${TIMEOUT_S}s, workdir ${WORKDIR})"
   set +e
-  timeout "$TIMEOUT_S" hermes -p "$PROFILE" -z "$wrapped" >"$RAW_BUF" 2>"$STDERR_BUF"
+  cd "$WORKDIR" && timeout "$TIMEOUT_S" hermes -p "$PROFILE" -z "$wrapped" >"$RAW_BUF" 2>"$STDERR_BUF"
   local ec=$?
   set -e
   if [ "$ec" -eq 124 ]; then fail "$EX_TIMEOUT" "zexec-timeout" "timeout" "hermes -z timed out after ${TIMEOUT_S}s"; fi
@@ -250,7 +256,11 @@ run_marker() {
 
   local begin end wrapped
   begin="$(marker_begin "$ASSIGNMENT")"; end="$(marker_end "$ASSIGNMENT")"
-  wrapped="$(cat "$PROMPT_FILE")"$'\n\n'"IMPORTANT OUTPUT PROTOCOL: First state your Hermes profile name on its own line as 'PROFILE_IDENTITY: <name>'. Then emit your FINAL specialist handoff (per shared/templates/specialist-handoff.md) EXACTLY ONCE. Put a line containing only the begin marker \"${begin}\" immediately before your handoff, and a line containing only the end marker \"${end}\" immediately after it. Emit each of those two marker lines only once, and put NOTHING after the end-marker line. Read-only: make NO changes to any file or system."
+  if [ "$WRITE_ENABLED" -eq 1 ]; then
+    wrapped="$(cat "$PROMPT_FILE")"$'\n\n'"IMPORTANT OUTPUT PROTOCOL: First state your Hermes profile name on its own line as 'PROFILE_IDENTITY: <name>'. Then emit your FINAL specialist handoff (per shared/templates/specialist-handoff.md) EXACTLY ONCE. Put a line containing only the begin marker \"${begin}\" immediately before your handoff, and a line containing only the end marker \"${end}\" immediately after it. Emit each of those two marker lines only once, and put NOTHING after the end-marker line. You are AUTHORIZED to create and modify files in the working directory as specified in the assignment."
+  else
+    wrapped="$(cat "$PROMPT_FILE")"$'\n\n'"IMPORTANT OUTPUT PROTOCOL: First state your Hermes profile name on its own line as 'PROFILE_IDENTITY: <name>'. Then emit your FINAL specialist handoff (per shared/templates/specialist-handoff.md) EXACTLY ONCE. Put a line containing only the begin marker \"${begin}\" immediately before your handoff, and a line containing only the end marker \"${end}\" immediately after it. Emit each of those two marker lines only once, and put NOTHING after the end-marker line. Read-only: make NO changes to any file or system."
+  fi
 
   # --- Launch: workspace create -> pane ---
   M_START="$(now_iso)"

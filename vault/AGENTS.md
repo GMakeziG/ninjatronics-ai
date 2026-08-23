@@ -222,6 +222,52 @@ Important information should eventually be incorporated into the appropriate per
 
 Daily notes are not a substitute for permanent documentation.
 
+### Daily note preservation
+
+Daily notes are cumulative records for the entire day.
+
+When `6_Daily/YYYY-MM-DD.md` already exists:
+
+1. Read the existing file before modifying it.
+2. Preserve all existing entries.
+3. Add new work as a new `##` section.
+4. Never replace the day's title or previous sections merely because the current task is unrelated.
+5. Do not rewrite a daily note as though the current task were the only activity that occurred that day.
+6. If restructuring is useful, preserve every existing item during the restructuring.
+
+The daily note should have one top-level date heading:
+
+    # YYYY-MM-DD
+
+Each distinct activity should normally be added beneath it as a second-level heading:
+
+    ## Activity or task name
+
+Subsections for that activity should use third-level headings:
+
+    ### What was attempted
+    ### What happened
+    ### What worked
+    ### What didn't work
+    ### How it was verified
+    ### Decisions made
+    ### Remaining work
+
+Example:
+
+    # 2026-08-23
+
+    ## Nginx troubleshooting
+
+    ...
+
+    ## Zaifu Phase 0 Specialist Work
+
+    ### What was attempted
+
+    ...
+
+Before saving an existing daily note, verify that previously recorded activities remain present.
 ---
 
 ## Templates/
