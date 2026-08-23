@@ -107,6 +107,27 @@ Three assignments dispatched in parallel:
 - Vercel (frontend) + Azure Container Apps (API)
 - GitHub Actions + OIDC for CI/CD
 
+## Harness Interoperability (23-08-2026)
+
+Pi and Nova/Hermes are now supported as interchangeable active orchestrators.
+Existing references to Nova mean the orchestrator role unless runtime identity
+is explicitly required.
+
+The shared resume workflow now discovers the central assignment ledger,
+project-local orchestration records, project-aware shared handoffs (including
+retry suffixes), phase/gate records, the matching vault project note, the latest
+relevant daily note, and Graphify availability/freshness guidance. It excludes
+unrelated projects' shared handoffs.
+
+Validation completed:
+- Resume workflow tests: 12 passed, 0 failed
+- Specialist dispatcher regression tests: 18 passed, 0 failed
+- Pi/Hermes resume prompts are equivalent except for the harness identity
+- Graphify refreshed and the new resume/harness symbols verified present
+
+Historical Phase 0 orchestration reconciliation remains deferred as a separate
+cleanup task.
+
 ## Related
 
 - [[test-web-01]]

@@ -14,9 +14,21 @@ The goal is to ensure that multi-agent work is:
 - Escalated when human approval is required
 - Documented before closure
 
-Nova is the primary orchestrator.
+Nova is the primary orchestrator role.
 
-Nova coordinates work but does not automatically assume the responsibilities of Shinobi, Sentinel, Archivist, Claude Code, or Codex.
+## Active-orchestrator compatibility
+
+Pi and Nova/Hermes may both act as the active Ninjatronics orchestrator. Unless
+a statement explicitly requires a runtime-specific identity, existing references
+to "Nova" mean the orchestrator role and apply equally to whichever supported
+harness is active.
+
+The active orchestrator must follow the same routing, assignment, evidence,
+review, persistence, approval, and closure obligations. Changing harnesses does
+not change project state: Git and the Ninjatronics filesystem artifacts remain
+authoritative.
+
+The active orchestrator coordinates work but does not automatically assume the responsibilities of Shinobi, Sentinel, Archivist, Claude Code, or Codex.
 
 ---
 

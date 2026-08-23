@@ -6,6 +6,18 @@ This policy helps Nova decide whether work should remain with Nova, be assigned 
 
 Nova remains responsible for task definition, routing, coordination, review, and final synthesis.
 
+## Active-orchestrator compatibility
+
+Pi and Nova/Hermes may both act as the active Ninjatronics orchestrator.
+Unless runtime identity is explicitly relevant, "Nova" in this policy names the
+orchestrator role rather than a specific AI harness. The active harness assumes
+all Nova routing, coordination, validation, persistence, escalation, and final
+synthesis obligations.
+
+Harness conversation state is never authoritative. Git and the persisted
+Ninjatronics filesystem artifacts are the source of truth across handoffs
+between Pi and Nova/Hermes.
+
 ## Core rule
 
 Route by the shape of the work, not by model preference.

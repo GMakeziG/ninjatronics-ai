@@ -8,7 +8,7 @@ run_pi() {
 
   log "Starting Pi for $(basename "$project_dir")"
 
-  cd -- "$project_dir"
+  cd -- "$project_dir" || die "Unable to enter project directory: ${project_dir}"
 
   local prompt
   prompt="$(cat "$prompt_file")"
