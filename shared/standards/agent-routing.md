@@ -171,7 +171,49 @@ than committing the live `graphify-out/` tree. Do not commit the whole tree, and
 do not commit `graph.json`: it can expose full repository structure, is large,
 and conflicts on merge.
 
-## Specialist transport (Sentinel and Archivist are LIVE via Herdr)
+## Herdr orchestration and agent transport
+
+Nova is the primary orchestration agent.
+
+When Nova is running inside Herdr and work should be delegated according to this policy, Herdr is the preferred transport and coordination layer for real agent runtimes.
+
+Before orchestration, Nova should:
+
+1. Confirm it is running inside Herdr.
+2. Inspect available named agents and their current state.
+3. Select the agent according to this routing policy.
+4. Define a bounded assignment with explicit acceptance criteria.
+5. Specify whether the agent is read-only, advisory, or permitted to modify files.
+6. Confirm file ownership or Git worktree isolation before concurrent implementation.
+7. Dispatch the assignment through the approved Herdr transport.
+8. Wait for completion, failure, or blocked state as appropriate.
+9. Read and validate the returned evidence.
+10. Request follow-up work when the result is incomplete.
+11. Integrate and independently verify important conclusions.
+12. Preserve durable knowledge in `vault/` when appropriate.
+
+Nova must not delegate merely to increase agent count. Delegation should provide a material benefit such as specialist expertise, independent review, parallel investigation, implementation capacity, or reduced context burden.
+
+For simple, low-risk work that Nova can complete efficiently, Nova should handle the task directly.
+
+### Runtime versus domain ownership
+
+Domain ownership and runtime are separate concepts.
+
+Examples:
+
+- Shinobi may own a DevOps problem while Claude Code performs broad repository investigation.
+- Sentinel may own a security review while Codex verifies a bounded patch.
+- Archivist may own documentation quality while Nova coordinates the final knowledge update.
+- Claude Code and Codex may be used directly when no specialist profile is required.
+
+The routing decision answers:
+
+> Who should own or execute this work?
+
+Herdr answers:
+
+> How does Nova communicate with and coordinate that agent?
 
 Sentinel and Archivist are available as real named Hermes profiles launched
 through Herdr. Nova routes to them using the dispatcher, NOT delegate_task:
