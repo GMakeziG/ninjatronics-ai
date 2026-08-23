@@ -97,3 +97,4 @@ A `listen 443 ssl;` directive appeared twice in the same `server` block. Nginx t
 ## Related
 
 - [[test-web-01]]
+- [[Nginx Troubleshooting]] — general Nginx troubleshooting runbook (start here for any Nginx failure).
