@@ -32,15 +32,15 @@ AGENTS.md
 /
 ├── AGENTS.md
 ├── README.md
-├── Inbox/
-├── Systems/
-├── Projects/
-├── Runbooks/
-├── Reference/
-├── Daily/
-├── Templates/
-├── Attachments/
-└── Archive/
+├── 1_Inbox/
+├── 2_Systems/
+├── 3_Projects/
+├── 4_Runbooks/
+├── 5_Reference/
+├── 6_Daily/
+├── 7_Templates/
+├── 8_Attachments/
+└── 9_Archive/
 ```
 
 ### Inbox

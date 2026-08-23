@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "5e58b480453cdba4",
+        "id": "cc3ed81ed03d6783",
         "type": "tabs",
         "children": [
           {
-            "id": "d27188f57329782c",
+            "id": "0ed70b4882e0e1cc",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "1_Inbox/Nova Vault Smoke Test.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Nova Vault Smoke Test"
             }
           }
         ]
@@ -181,8 +185,10 @@
       "bases:Create new base": false
     }
   },
-  "active": "d27188f57329782c",
+  "active": "0ed70b4882e0e1cc",
   "lastOpenFiles": [
+    "README.md",
+    "AGENTS.md",
     "9_Archives",
     "8_Attachments",
     "7_Templates",
@@ -191,8 +197,6 @@
     "4_Runbooks",
     "3_Projects",
     "2_Systems",
-    "1_Inbox",
-    "AGENTS.md",
-    "README.md"
+    "1_Inbox"
   ]
 }

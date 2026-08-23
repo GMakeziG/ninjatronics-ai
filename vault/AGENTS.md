@@ -47,15 +47,16 @@ Use the following primary directories:
 ```text
 /
 ├── AGENTS.md
-├── Inbox/
-├── Systems/
-├── Projects/
-├── Runbooks/
-├── Reference/
-├── Daily/
-├── Templates/
-├── Attachments/
-└── Archive/
+├── README.md
+├── 1_Inbox/
+├── 2_Systems/
+├── 3_Projects/
+├── 4_Runbooks/
+├── 5_Reference/
+├── 6_Daily/
+├── 7_Templates/
+├── 8_Attachments/
+└── 9_Archive/
 ```
 
 Do not create new top-level directories unless there is a clear long-term organizational reason.
