@@ -42,7 +42,7 @@ The refined MVP ("$500 purchase question"):
 
 - **Phase 0 deliverables (Discovery & Charter):** COMPLETE
 - **Phase 0 gate:** APPROVED by Gerso on 23-08-2026
-- **Current phase:** Phase 1 Wave 1 PH1-SEN-001 integrated; PH1-SEN-002 and PH1-COD-001 awaiting final dispatch approval
+- **Current phase:** Phase 1 Tranche 2 reviews complete; remediation required; PH1-WP-03 dependency-ready but undispatched
 
 ## Key Decisions (21 ADRs)
 
@@ -237,9 +237,41 @@ cloud/resource/spend action, deployment, Codex use, or Hermes use occurred. This
 is policy authorship, not Sentinel approval or operating-control evidence. Mode B
 remains disabled; G2 and the 70% ceiling/answer-threshold issue remain open.
 
-PH1-SEN-002 and PH1-COD-001 remain undispatched. They may be proposed as separate
-read-only Codex reviews only after Gerso's final dispatch approval. Native Hermes
-is not an eligible execution runtime under the current runtime policy.
+### Tranche 2 independent reviews (2026-08-23)
+
+Gerso approved PH1-SEN-002 and PH1-COD-001 in parallel as separate read-only
+Codex sessions. Codex independence was reconfirmed before dispatch: it had
+contributed to none of PH1-ARC-001, PH1-CLD-002, PH1-SHI-001, PH1-SEN-001, or
+the reviewed value-fidelity controls. Both sessions completed without repository
+modification or another runtime invocation.
+
+PH1-SEN-002 returned `REMEDIATION REQUIRED`. Independent validation accepted
+zero BLOCKER, three HIGH, one MEDIUM, and one LOW: CI targets `main` while Zaifu
+integrates on `master`; hosted scanning/protection/CI controls remain absent
+because no host exists; the future provider-egress NSG design lacks a concrete
+supported FQDN/DNS-aware mechanism; dependency lifecycle-script policy is not
+defined; and broker code must enforce schema cross-field relationships. This is
+not WP-15 and grants no release approval.
+
+PH1-COD-001 returned `BLOCK` for Ledger value-fidelity approval with three HIGH
+findings. Future Mode B substitution does not normatively bind tokens to exact
+engine fields/values, the digest lacks a defined algorithm/canonical covered
+object, and integer-only monetary display formatting is unspecified. Mode A's
+deterministic engine ownership passed. The block does not close G2 or resolve
+the 70% ceiling/answer-threshold issue.
+
+A Codex CLI self-update caused each initial launch to exit. In the Ledger pane,
+buffered assignment prose reached bash and produced command-not-found errors,
+including a capitalized `Hermes` prose token. No Hermes binary/runtime was
+started, contacted, probed, dispatched, retried, or used as fallback. Both Codex
+sessions were restarted and verified before the real assignments were sent.
+
+PH1-WP-03 is technically dependency-ready because WP-01 and WP-02 are
+integrated, but no further work is authorized. Higher-priority remediation
+candidates are WP-01 CI/install-script posture, WP-11 value-fidelity contract,
+and WP-14 network-egress design. Hosted controls remain blocked on a repository
+host and any visibility/cost decisions. Stop for Gerso approval before any
+remediation or implementation dispatch.
 
 G2, D-01/G3, D-03, D-06, D-07/G6, and G5 resource/spend approval remain pending.
 Artifacts: `shared/handoffs/PH1-CLD-001/tranche-1-results.md`,
