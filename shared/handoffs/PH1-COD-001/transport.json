@@ -1,0 +1,57 @@
+{
+  "assignment_id": "PH1-COD-001",
+  "role": "independent-ledger-reviewer",
+  "runtime": "codex",
+  "runtime_role_statement": "Codex carrying the independent Ledger reviewer role",
+  "transport": "Herdr interactive agent",
+  "dispatch_date": "2026-08-23",
+  "completion_date": "2026-08-23",
+  "execution_status": "completed",
+  "review_verdict": "BLOCK",
+  "agent_name": "ph1_cod_001",
+  "agent_kind": "codex",
+  "agent_session_id": "01a0318a-7f16-7ba3-a138-8064103485e2",
+  "workspace_id": "w1B",
+  "tab_id": "w1B:t1",
+  "pane_id": "w1B:p6",
+  "terminal_id": "term_659c18154e5a532",
+  "cwd": "/home/gerso/Development/zaifu",
+  "repository_head": "770b59e4b6e91bdf4cc08c66071fcaac3047038e",
+  "assignment_artifact": "shared/handoffs/PH1-COD-001/assignment.md",
+  "result_artifact": "shared/handoffs/PH1-COD-001/result.md",
+  "validation_artifact": "shared/handoffs/PH1-COD-001/validation.md",
+  "identity_evidence": {
+    "start_argv": ["codex"],
+    "interactive_ready": true,
+    "specialist_role_declared": "independent Ledger reviewer"
+  },
+  "independence_evidence": {
+    "codex_contributed_to_reviewed_artifacts": false,
+    "reviewed_artifact_runtime": "claude",
+    "scope_independent": true
+  },
+  "runtime_exclusions": {
+    "claude_dispatched": false,
+    "hermes_runtime_attempts": 0,
+    "other_agents_or_subagents_dispatched": false
+  },
+  "read_only": {
+    "repository_files_modified_by_reviewer": false,
+    "financial_rules_modified": false,
+    "engines_or_fixtures_modified": false,
+    "policy_or_documentation_modified": false,
+    "g2_closed": false
+  },
+  "transport_events": [
+    "A first Codex launch entered the CLI self-update path; the assignment prompt was buffered and, after the updater exited, was parsed by the shell instead of Codex.",
+    "The shell reported 'Execute: command not found' and parsed the trailing prose clause as a capitalized nonexistent 'Hermes' command, also returning command not found; no Hermes runtime was started, contacted, probed, or dispatched.",
+    "Codex was restarted and verified interactively before the assignment was resent.",
+    "The exact read-only assignment completed without repository modification or another runtime invocation."
+  ],
+  "transport_incident": {
+    "summary": "Herdr reported the initial Codex updater as ready; prose reached the shell after updater exit. The assignment was safely resent only after a verified Codex restart.",
+    "shell_errors": ["Execute: command not found", "Hermes: command not found"],
+    "hermes_runtime_started_or_contacted": false
+  },
+  "error": null
+}
