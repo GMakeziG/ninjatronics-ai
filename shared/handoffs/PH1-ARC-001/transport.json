@@ -1,0 +1,39 @@
+{
+  "assignment_id": "PH1-ARC-001",
+  "role": "archivist",
+  "runtime": "claude",
+  "fallback": {
+    "intentional": true,
+    "reason": "Gerso-approved fallback to conserve native Hermes quota",
+    "native_runtime_failure_required": false
+  },
+  "transport": "herdr interactive agent",
+  "dispatch_date": "2026-08-23",
+  "final_status": "success",
+  "exit_status": 0,
+  "agent_name": "ph1_arc_001",
+  "agent_kind": "claude",
+  "agent_session_id": "1833aa6d-c8b6-4826-9c6e-7ac01158bdf0",
+  "workspace_id": "w1D",
+  "tab_id": "w1D:t1",
+  "pane_id": "w1D:p1",
+  "terminal_id": "term_659bf0b0e917e2d",
+  "worktree": "/home/gerso/Development/worktrees/zaifu/PH1-ARC-001",
+  "branch": "phase1/ph1-arc-001",
+  "base_commit": "7798215c30bbe97722d68f8cd582fd7a62e1455a",
+  "result_commit": "1979835",
+  "assignment_artifact": "shared/handoffs/PH1-ARC-001/assignment.md",
+  "result_artifact": "shared/handoffs/PH1-ARC-001/result.md",
+  "live_transcript_reference": "Herdr agent ph1_arc_001 / pane w1D:p1",
+  "identity_evidence": {
+    "start_argv": ["claude"],
+    "cwd": "/home/gerso/Development/worktrees/zaifu/PH1-ARC-001",
+    "interactive_ready": true,
+    "specialist_role_declared_in_assignment_and_handoff": "archivist"
+  },
+  "transport_events": [
+    "Initial 1200000ms wait timed out while agent remained in working state; live state and transcript were inspected.",
+    "Subsequent Herdr wait reached done; committed handoff was persisted and independently validated."
+  ],
+  "error": null
+}

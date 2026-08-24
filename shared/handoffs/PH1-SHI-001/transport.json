@@ -1,0 +1,41 @@
+{
+  "assignment_id": "PH1-SHI-001",
+  "role": "shinobi",
+  "runtime": "claude",
+  "fallback": {
+    "intentional": true,
+    "reason": "Gerso-approved fallback; native Shinobi is not in the validated dispatcher allow-list",
+    "native_runtime_failure_required": false
+  },
+  "transport": "herdr interactive agent",
+  "dispatch_date": "2026-08-23",
+  "final_status": "success",
+  "exit_status": 0,
+  "agent_name": "ph1_shi_001",
+  "agent_kind": "claude",
+  "agent_session_id": "e969c9d5-42b4-437e-bbeb-781be3ba63f6",
+  "workspace_id": "w1F",
+  "tab_id": "w1F:t1",
+  "pane_id": "w1F:p1",
+  "terminal_id": "term_659bf0b0f240d2f",
+  "worktree": "/home/gerso/Development/worktrees/zaifu/PH1-SHI-001",
+  "branch": "phase1/ph1-shi-001",
+  "base_commit": "7798215c30bbe97722d68f8cd582fd7a62e1455a",
+  "result_commits": ["73ac771", "00185e2"],
+  "assignment_artifact": "shared/handoffs/PH1-SHI-001/assignment.md",
+  "result_artifact": "shared/handoffs/PH1-SHI-001/result.md",
+  "live_transcript_reference": "Herdr agent ph1_shi_001 / pane w1F:p1",
+  "identity_evidence": {
+    "start_argv": ["claude"],
+    "cwd": "/home/gerso/Development/worktrees/zaifu/PH1-SHI-001",
+    "interactive_ready": true,
+    "specialist_role_declared_in_assignment_and_handoff": "shinobi"
+  },
+  "transport_events": [
+    "Initial 1200000ms wait timed out while agent remained in working state; live state and transcript were inspected.",
+    "Subsequent Herdr wait reached idle with a committed handoff.",
+    "A bounded follow-up reconciled IC-01 through IC-10 against completed PH1-CLD-002 and committed the result."
+  ],
+  "prohibited_action_verification": "Git boundary and transcript review found documentation-only public research; no cloud CLI/auth/resource/deploy/DNS/spend action. Public anonymous Azure Retail Prices documentation endpoint use was disclosed.",
+  "error": null
+}

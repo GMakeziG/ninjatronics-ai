@@ -1,0 +1,28 @@
+{
+  "assignment_id": "PH1-CLD-001",
+  "runtime": "Claude Code",
+  "transport_method": "Herdr interactive agent",
+  "agent_name": "zaifu_phase1_planner",
+  "agent_kind": "claude",
+  "agent_session_id": "f95ab690-6227-44a0-9d02-67fc1d881326",
+  "pane_id": "w1B:p4",
+  "workspace_id": "w1B",
+  "tab_id": "w1B:t1",
+  "terminal_id": "term_659bdd3a69e0d2b",
+  "workdir": "/home/gerso/Development/zaifu",
+  "start_timestamp": null,
+  "completion_timestamp": "2026-08-23T15:04:57-07:00",
+  "final_status": "done",
+  "exit_status": 0,
+  "assignment_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH1-CLD-001/assignment.md",
+  "result_artifact_path": "/home/gerso/Development/ninjatronics-ai/shared/handoffs/PH1-CLD-001/result.md",
+  "project_handoff_path": "/home/gerso/Development/zaifu/docs/orchestration/handoffs/PH1-CLD-001.md",
+  "identity_verification": {
+    "herdr_agent_kind": "claude",
+    "herdr_agent_session_source": "herdr:claude",
+    "interactive_ready": true
+  },
+  "capture_note": "Herdr alternate-screen scrollback retained only the response tail. At the orchestrator's request Claude wrote the already-completed response unchanged to /tmp/PH1-CLD-001-result.md; the orchestrator copied it into persisted handoff paths. No repository file was modified by Claude.",
+  "start_timestamp_note": "Exact dispatch start timestamp was not captured; no timestamp was fabricated.",
+  "error": null
+}
