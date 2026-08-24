@@ -42,7 +42,7 @@ The refined MVP ("$500 purchase question"):
 
 - **Phase 0 deliverables (Discovery & Charter):** COMPLETE
 - **Phase 0 gate:** APPROVED by Gerso on 23-08-2026
-- **Current phase:** Phase 1 Wave 1 Tranche 1 integrated; Tranche 2 awaiting approval
+- **Current phase:** Phase 1 Wave 1 PH1-SEN-001 integrated; PH1-SEN-002 and PH1-COD-001 awaiting final dispatch approval
 
 ## Key Decisions (21 ADRs)
 
@@ -210,17 +210,43 @@ Durable findings:
   constraints.
 - WP-14 remains design only. No resource, credential, deployment, DNS, spend,
   production, or destructive action occurred.
-- Codex remains independent and eligible for PH1-SEN-002 and PH1-COD-001 because
-  it performed no Tranche 1 implementation.
+- Codex remained independent through PH1-SEN-001: its Herdr state was unchanged,
+  it implemented no reviewed control, and it remains eligible for PH1-SEN-002 and
+  PH1-COD-001.
 
-Proposed Tranche 2 is dependency-gated: PH1-SEN-001 first; after validation and
-integration, PH1-SEN-002 and PH1-COD-001 may run as separate read-only Codex
-reviews. None is authorized or dispatched. Native Hermes Sentinel remains
-reserved for WP-15/high-value release review.
+### PH1-SEN-001 execution (2026-08-23)
+
+Gerso authorized PH1-SEN-001 only. Claude Code carried the Sentinel policy-author
+role in isolated worktree `/home/gerso/Development/worktrees/zaifu/PH1-SEN-001`.
+The bounded result created the Mode A trust-boundary policy and machine-readable
+deny-by-default egress schema, plus narrow security-document cross-references and
+project-local orchestration evidence. Exactly six owned paths changed.
+
+The orchestrator independently found and corrected two record defects before
+integration: UTC-derived `2026-08-24` dates instead of the required Los Angeles
+`2026-08-23`, and a handoff sentence saying five files changed instead of six.
+The amended result commit `266c6aa` was validated and integrated to Zaifu `master`
+as `0cc5741`.
+
+Validation: JSON parsed under Python/Node/jq; all 7 schema objects are closed with
+`additionalProperties: false`; 32/32 fixtures passed with zero synthetic value
+leaks; 21 relative links passed; scope and diff checks passed. The plan's
+illustrative `SAFER_TO_WAIT` differs from the authoritative engine enum
+`yes | no | maybe`; WP-12 must use the engine authority and recheck after G2.
+
+No provider call, production-data access/egress, financial-rule change,
+cloud/resource/spend action, deployment, Codex use, or Hermes use occurred. This
+is policy authorship, not Sentinel approval or operating-control evidence. Mode B
+remains disabled; G2 and the 70% ceiling/answer-threshold issue remain open.
+
+PH1-SEN-002 and PH1-COD-001 remain undispatched. They may be proposed as separate
+read-only Codex reviews only after Gerso's final dispatch approval. Native Hermes
+is not an eligible execution runtime under the current runtime policy.
 
 G2, D-01/G3, D-03, D-06, D-07/G6, and G5 resource/spend approval remain pending.
-Artifacts: `shared/handoffs/PH1-CLD-001/tranche-1-results.md` and each Tranche 1
-assignment directory under `shared/handoffs/`.
+Artifacts: `shared/handoffs/PH1-CLD-001/tranche-1-results.md`,
+`shared/handoffs/PH1-SEN-001/`, and each Tranche 1 assignment directory under
+`shared/handoffs/`.
 
 Evidence:
 - `shared/handoffs/PH1-CLD-001/assignment.md`

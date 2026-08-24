@@ -135,7 +135,8 @@ This table provides the current state of all assignments.
 | PH6-ARC-001 | Documentation for Audiobookshelf deployment | Archivist (fallback: delegated subagent deleg_1d2cb368) | Normal | Complete — accepted by Nova (commit 7cf3fc7; evidence validated) | PH6-SEN-001 | Nova | None | 2026-07-28 |
 | PH6-CLD-001 | Herdr v0.7.5 contract discovery for Nova→Herdr→specialist transport | Claude Code (runtime; deleg_1cd1fe0e) | High | Complete — accepted by Nova (contract proven end-to-end via live probe; evidence in transcript) | None | Nova | Gerso (plan approval before Phase 2) | 2026-07-28 |
 | PH6-COD-002 | Implement Nova→Herdr→specialist transport (dispatch-specialist.sh + libs + docs); optional `hermes -z` spike | Codex (runtime) | High | Complete — Nova-reviewed & live-validated (TEST A/B/C/D pass; Nova fixed 3 integration bugs: stderr error-parse, whole-line markers, teardown verify) | PH6-CLD-001 | Nova | Gerso (merge gate) | 2026-07-28 |
-| PH1-CLD-001 | Zaifu Phase 1 sequenced implementation plan | Claude Code (Herdr runtime) | High | Tranche 1 complete and integrated; Tranche 2 awaiting Gerso approval | Phase 0 gate approval; ADR-022–ADR-025 | Active orchestrator | Gerso (Tranche 2 dispatch not authorized) | 2026-08-23 |
+| PH1-CLD-001 | Zaifu Phase 1 sequenced implementation plan | Claude Code (Herdr runtime) | High | PH1-SEN-001 integrated; remaining Tranche 2 reviews awaiting final dispatch approval | Phase 0 gate approval; ADR-022–ADR-025 | Active orchestrator | Gerso before PH1-SEN-002 or PH1-COD-001 dispatch | 2026-08-23 |
+| PH1-SEN-001 | WP-11 Mode A LLM trust-boundary policy and data contract | Sentinel policy-author role on Claude Code | High | Complete — independently validated and integrated with findings | Integrated PH1-ARC-001; D-02/G4 Mode A | Active orchestrator; PH1-SEN-002 and PH1-COD-001 later | Gerso before either independent review dispatch | 2026-08-23 |
 | PH1-ARC-001 | WP-02 authoritative baseline reconciliation | Archivist role on Claude Code (approved fallback) | High | Complete — Nova-validated and integrated with findings | G1; D-05; DO-06; D-02/G4 Mode A | Active orchestrator; PH1-SEN-002 later | G2 remains pending | 2026-08-23 |
 | PH1-CLD-002 | WP-01 monorepo foundation and toolchain | Forge role on Claude Code | High | Complete — Nova-validated and integrated with findings | G1; DO-06 | Active orchestrator; PH1-SEN-002 later | G2 remains pending | 2026-08-23 |
 | PH1-SHI-001 | WP-14 platform architecture and cost/residency proposal | Shinobi role on Claude Code (approved fallback) | High | Complete — Nova-validated and integrated with findings | G1; D-04 design-only authorization | Active orchestrator; PH1-SEN-002 later | G5 remains pending | 2026-08-23 |
@@ -231,11 +232,11 @@ Assignments remain in this section until they are Closed or Cancelled.
 | Owner | `Claude Code` |
 | Requested by | `Pi acting as active orchestrator (Nova role)` |
 | Priority | `High` |
-| Status | `Tranche 1 complete and integrated; Tranche 2 awaiting approval` |
+| Status | `PH1-SEN-001 validated and integrated; PH1-SEN-002 and PH1-COD-001 awaiting final dispatch approval` |
 | Created | `2026-08-23` |
 | Last updated | `2026-08-23` |
 | Reviewer | `Active orchestrator` |
-| Approval required | `Gerso before Tranche 2 dispatch` |
+| Approval required | `Gerso before PH1-SEN-002 or PH1-COD-001 dispatch` |
 | Recommended next owner | `Gerso` |
 
 #### Objective
@@ -336,6 +337,7 @@ with bounded, routable work packages.
 | `2026-08-23` | `Approved at G1` | `Wave 1 ready — awaiting dispatch approval` | `Gerso / active orchestrator` | D-05, DO-06, D-02/G4 Mode A, and D-04 design-only approved; readiness reassessed; no dispatch | `routing-reassessment.md`; `first-wave-proposal.md`; Zaifu `DECISION_LOG.md` addendum |
 | `2026-08-23` | `Wave 1 ready — awaiting dispatch approval` | `Tranche 1 in progress` | `Gerso / active orchestrator` | Gerso authorized PH1-ARC-001, PH1-CLD-002, and design-only PH1-SHI-001 with selected runtimes | Assignment and transport artifacts under `shared/handoffs/` |
 | `2026-08-23` | `Tranche 1 in progress` | `Tranche 1 complete and integrated; Tranche 2 awaiting approval` | `Pi / active orchestrator` | Handoffs independently validated, integrated in dependency order, repository-wide validation passed, and Codex eligibility preserved | `shared/handoffs/PH1-CLD-001/tranche-1-results.md` |
+| `2026-08-23` | `Tranche 2 awaiting approval` | `PH1-SEN-001 validated and integrated; remaining reviews awaiting final dispatch approval` | `Gerso / Pi active orchestrator` | Gerso authorized PH1-SEN-001 only; Claude/Sentinel authored WP-11 in isolation; orchestrator validated, corrected, and integrated it; Codex eligibility preserved | `shared/handoffs/PH1-SEN-001/validation.md` |
 
 #### Dispatch record
 
@@ -379,7 +381,7 @@ with bounded, routable work packages.
 |---|---|
 | Approval required | `Yes` |
 | Approver | `Gerso` |
-| Decision | `G1 and Tranche 1 approved and executed under stated conditions; Tranche 2 is not authorized` |
+| Decision | `G1 and Tranche 1 executed; PH1-SEN-001 alone authorized, validated, and integrated; PH1-SEN-002 and PH1-COD-001 not yet authorized` |
 | Date | `2026-08-23` |
 | Approval evidence | `shared/handoffs/PH1-CLD-001/routing-reassessment.md`; Zaifu `docs/planning/DECISION_LOG.md` Phase 1 Owner Decision Addendum |
 
@@ -392,7 +394,7 @@ with bounded, routable work packages.
 - Claude/Codex Shinobi fallback and Claude Archivist fallback are approved under the disclosure and domain-rule conditions in the reassessment.
 - D-05, DO-06, D-02/G4 Mode A, and D-04 design-only treatment are approved and persisted.
 - G2, D-01/G3, D-03, D-06, D-07/G6, and resource/spend approval at G5 remain pending at their existing gates.
-- Tranche 1 is integrated and validated. PH1-SEN-001, PH1-SEN-002, and PH1-COD-001 remain undispatched pending Gerso approval.
+- Tranche 1 and PH1-SEN-001 are integrated and validated. PH1-SEN-002 and PH1-COD-001 remain undispatched pending Gerso's final approval.
 - PH1-ARC-001 left two excluded legacy package-path references and surfaced a trust-ceiling/answer-threshold question for WP-03/G2.
 - PH1-CLD-002 cannot enable hosted secret scanning or branch protection until a repository host and any required spend are approved.
 - PH1-SHI-001 found that D-04/G5 must jointly decide region, residency, backup redundancy, key-management posture, and spend before resource creation.
@@ -407,6 +409,63 @@ with bounded, routable work packages.
 | Final synthesis | `shared/handoffs/PH1-CLD-001/validation.md`; approved routing/decision supplement at `routing-reassessment.md`; proposed execution at `first-wave-proposal.md` |
 | Evidence index | `shared/handoffs/PH1-CLD-001/` |
 | Residual risk | `Ledger separation and Sentinel fallback eligibility must be enforced per assignment. G2, G3, G5 resource approval, G6, D-01, D-03, D-06, and D-07 remain pending.` |
+
+### `PH1-SEN-001` — `WP-11 Mode A LLM trust-boundary policy and data contract`
+
+#### Metadata
+
+| Field | Value |
+|---|---|
+| Assignment ID | `PH1-SEN-001` |
+| Owner | `Sentinel policy-author role on Claude Code` |
+| Requested by | `Pi / active orchestrator` |
+| Priority | `High` |
+| Status | `Complete — independently validated and integrated with findings` |
+| Created / updated | `2026-08-23` |
+| Reviewer | `Active orchestrator; PH1-SEN-002 and PH1-COD-001 after separate approval` |
+| Approval required | `Gerso before either independent review dispatch` |
+| Recommended next owner | `Gerso for PH1-SEN-002 and PH1-COD-001 dispatch decision` |
+
+#### Objective, scope, and evidence
+
+Implement design-only WP-11 in an isolated Zaifu worktree: the Mode A trust-boundary policy, machine-readable deny-by-default egress data contract, narrow TM-08/TM-09/TM-10 and security-architecture cross-references, and project-local assignment/handoff. Exclusive ownership and prohibited actions are defined in `shared/handoffs/PH1-SEN-001/assignment.md`.
+
+#### Runtime and independence disclosure
+
+| Field | Value |
+|---|---|
+| Specialist role | `Sentinel policy author` |
+| Runtime used | `Claude Code` |
+| Runtime statement | `Claude Code carrying the Sentinel policy-author role` |
+| Codex used | `No — Herdr state unchanged before/after; independent-review eligibility preserved` |
+| Hermes used | `No` |
+| Independent review still required | `Yes — PH1-SEN-002 for security; PH1-COD-001 for Ledger value fidelity` |
+
+#### Status history
+
+| Date | Previous state | New state | Changed by | Reason | Evidence |
+|---|---|---|---|---|---|
+| `2026-08-23` | `—` | `Ready to dispatch` | `Gerso / Pi active orchestrator` | Gerso authorized PH1-SEN-001 only with Claude carrying Sentinel and strict prohibited-action bounds | User approval; `assignment.md` |
+| `2026-08-23` | `Ready to dispatch` | `Dispatched` | `Pi / active orchestrator` | Claude started in isolated Herdr worktree; Codex and Hermes excluded | `transport.json` |
+| `2026-08-23` | `Dispatched` | `Awaiting review` | `Claude Code / Sentinel policy author` | Bounded six-path result committed | Zaifu commit `266c6aa`; `result.md` |
+| `2026-08-23` | `Awaiting review` | `Complete` | `Pi / active orchestrator` | Scope/evidence independently validated after bounded date/count correction; integrated in dependency order | `validation.md`; integrated commit `0cc5741` |
+
+#### Dispatch, handoff, and validation record
+
+- Herdr: agent `ph1_sen_001`, workspace `w1G`, pane `w1G:p1`, terminal `term_659c021cbfb6d30`, Claude session `279a5168-b549-418a-b74d-d6f983ca74f4`; exit 0.
+- Worktree/branch: `/home/gerso/Development/worktrees/zaifu/PH1-SEN-001`, `phase1/ph1-sen-001`.
+- Bounded commit: `266c6aadf27fd3f3b3033a33717fe42e7505faf8`; integrated Zaifu commit: `0cc574190fc3d279099cbfff511599e3627041b1`.
+- Validation: exactly six owned paths; JSON parsers pass; 7/7 schema objects closed; 32 fixtures pass; 21 relative links pass; diff check and clean status pass.
+- Retained findings: criterion 8 requires PH1-SEN-002; the plan's `SAFER_TO_WAIT` illustration differs from the authoritative `yes | no | maybe` enum; G2 and the 70% threshold question remain open; Mode B remains disabled.
+- Prohibited actions: no provider call, production-data access/egress, financial-rule change, cloud/resource/spend action, deployment, Codex use, or Hermes use.
+
+#### Closure record
+
+| Field | Value |
+|---|---|
+| Closure status | `Implementation package complete; independent reviews pending` |
+| Evidence index | `shared/handoffs/PH1-SEN-001/` |
+| Remaining gate | `Gerso approval before PH1-SEN-002 or PH1-COD-001 dispatch` |
 
 ### `PH1-ARC-001` — `WP-02 authoritative baseline reconciliation`
 
