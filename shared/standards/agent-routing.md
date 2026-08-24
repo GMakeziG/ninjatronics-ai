@@ -285,6 +285,25 @@ Nova must ask Gerso before proceeding when work involves:
 - Compliance interpretations with organizational consequences
 - Conflicting recommendations without a clearly superior technical answer
 
+## Context-budget standard
+
+Persisted project state is the default source of context across requests. For
+future OpenAI requests:
+
+- Do not resend a large conversation transcript when persisted state, targeted
+  file reads, Graphify queries, or a concise handoff summary can establish the
+  required context.
+- Send only the assignment scope, governing constraints, relevant evidence, and
+  targeted source excerpts needed for the current task.
+- Treat the approximately 168,000-token request that hit the 500,000 TPM limit as
+  evidence of an oversized request context, not as a reason to retry the same
+  payload.
+- Do not retry an equivalently large request when a smaller targeted request can
+  satisfy the task.
+- Prefer structured summaries with file paths and commit references over repeated
+  ingestion of complete handoffs or conversation history.
+- Expand context only when the targeted request is demonstrably insufficient.
+
 ## Completion standard
 
 An agent response is not considered complete merely because code or prose was produced.
