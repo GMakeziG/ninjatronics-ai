@@ -1,7 +1,7 @@
 # Orchestrator Validation — PH1-SEN-001
 
-**Date:** 2026-08-23  
-**Reviewer:** Pi acting as active orchestrator (Nova role)  
+**Date:** 2026-08-23
+**Reviewer:** Pi acting as active orchestrator (Nova role)
 **Disposition:** Passed after bounded correction; integrated
 
 ## Identity, transport, and independence
