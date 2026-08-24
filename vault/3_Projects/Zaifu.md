@@ -145,16 +145,16 @@ cloud spend/region/residency, document import scope, and retention.
 ### Specialist/runtime routing reassessment — 2026-08-23
 
 The validated plan was reassessed under the rule that specialist roles and
-execution runtimes are separate. Native Hermes remains preferred for Archivist,
-Sentinel, and Shinobi, but runtime or quota unavailability does not remove those
-roles. Claude Code and Codex may carry disclosed, approved specialist fallbacks
-when their domain rules and evidence standards are preserved.
+execution runtimes are separate. Current `APPEND_SYSTEM.md` policy permits only
+Claude Code and Codex to execute Archivist, Sentinel, Shinobi, Ledger, and other
+specialist roles. Hermes is prohibited and must not be probed, tested,
+dispatched, retried, or used as a fallback.
 
-Sentinel approval must use a runtime that implemented none of the controls it
-reviews; a new session of an implementing runtime is not independent. Native
-Hermes Sentinel is therefore the preferred WP-15 reviewer. A Codex Sentinel
-fallback is viable only if Codex is reserved from security-control
-implementation.
+Sentinel approval must use an eligible runtime that implemented none of the
+controls it reviews; a new session of an implementing runtime is not independent.
+WP-15 therefore requires an untouched Claude Code or Codex runtime carrying
+Sentinel rules. If neither remains eligible, stop and request Gerso's decision
+rather than weakening the gate.
 
 Ledger has no native profile. Gerso approved the non-blocking Claude/Codex
 separation: Claude performs Ledger-role baseline reconciliation and Codex
@@ -162,12 +162,10 @@ independently reviews it; Codex implements fixture-driven engines and Claude
 independently performs Ledger-role review. Automated correctness and human
 financial gates are unchanged.
 
-Native Hermes Sentinel remains preferred for WP-15, with quota conserved for
-high-value review and release-gate work. Earlier Sentinel review may use an
-independent Claude/Codex fallback only when that runtime did not implement the
-reviewed control. Gerso also approved disclosed Claude/Codex Shinobi fallbacks
-and a disclosed Claude Archivist fallback when native runtimes are unavailable,
-quota-constrained, or uneconomical.
+The earlier preference for native Hermes Sentinel at WP-15 is superseded and
+non-operative. High-value review and release-gate work must reserve an untouched
+Claude Code or Codex runtime. Either may carry Sentinel, Shinobi, or Archivist
+rules when domain requirements and reviewer independence are preserved.
 
 Gerso subsequently approved D-05 (no import/upload; 70% trust ceiling), DO-06
 (`financial-engine`, `forecast-engine`, `decision-engine` internally), D-02/G4
@@ -259,9 +257,11 @@ Evidence:
 
 ## Harness Interoperability (23-08-2026)
 
-Pi and Nova/Hermes are now supported as interchangeable active orchestrators.
-Existing references to Nova mean the orchestrator role unless runtime identity
-is explicitly required.
+Earlier interoperability work treated Pi and Nova/Hermes as interchangeable
+active orchestrators. Current policy supersedes that runtime route: "Nova" means
+the orchestrator role, while only Claude Code and Codex may execute specialist
+work. Hermes must not be probed, tested, dispatched, retried, or used as a
+fallback.
 
 The shared resume workflow now discovers the central assignment ledger,
 project-local orchestration records, project-aware shared handoffs (including
@@ -272,7 +272,7 @@ unrelated projects' shared handoffs.
 Validation completed:
 - Resume workflow tests: 12 passed, 0 failed
 - Specialist dispatcher regression tests: 18 passed, 0 failed
-- Pi/Hermes resume prompts are equivalent except for the harness identity
+- Historical Pi/Hermes resume prompts were equivalent except for harness identity; this does not authorize Hermes execution under current policy
 - Graphify refreshed and the new resume/harness symbols verified present
 
 Historical Phase 0 orchestration reconciliation remains deferred as a separate

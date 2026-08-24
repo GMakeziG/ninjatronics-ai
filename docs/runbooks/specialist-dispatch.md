@@ -1,6 +1,11 @@
-# Runbook: Dispatching a Specialist via Herdr
+# Retired Runbook: Hermes Specialist Dispatch (historical evidence only)
 
-Operator guide for `scripts/dispatch-specialist.sh` — launching a real Hermes
+> **Do not execute this runbook.** Hermes is prohibited as an execution runtime
+> as of 2026-08-23. Do not probe, test, dispatch, retry, or fall back to Hermes.
+> Only Claude Code and Codex may execute specialist roles. The remaining content
+> is retained solely to interpret historical transport evidence.
+
+Historical operator guide for `scripts/dispatch-specialist.sh` — launching a real Hermes
 specialist profile (`sentinel`, `archivist`) through Herdr, waiting, and
 capturing the result. See `shared/standards/specialist-transport.md` for the
 full contract and rationale.

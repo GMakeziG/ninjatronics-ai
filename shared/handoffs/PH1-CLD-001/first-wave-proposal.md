@@ -4,6 +4,12 @@
 **Status:** Ready for Gerso dispatch approval; not dispatched
 **Basis:** PH1-CLD-001 plan, Pi validation, approved routing reassessment, G1, D-05, DO-06, D-02/G4 Mode A, and D-04 design-only treatment.
 
+> **Current runtime-policy supersession (2026-08-23):** This proposal preserves
+> the runtimes and rationale originally proposed or used as historical evidence.
+> They do not authorize future Hermes execution. Hermes is prohibited and must
+> not be probed, tested, dispatched, retried, or used as a fallback. Only Claude
+> Code and Codex may execute remaining specialist roles.
+
 ## Readiness conclusion
 
 Wave 1 is ready for staged dispatch. G2 is a post-reconciliation gate and does not block these bounded scopes. D-01/G3, D-03, D-06, and D-07/G6 are later gates. G5 remains closed; WP-14 is strictly design-only.
@@ -67,13 +73,13 @@ Wave 1 is ready for staged dispatch. G2 is a post-reconciliation gate and does n
 
 - **Specialist role:** Sentinel reviewer.
 - **Selected runtime:** Codex carrying Sentinel rules as an approved independent fallback.
-- **Eligibility condition:** Codex must not implement any reviewed Wave 1 control. If Codex is used to implement part of PH1-CLD-002 or another reviewed artifact, it becomes ineligible for that scope and native Hermes Sentinel or another untouched approved runtime is required.
+- **Eligibility condition:** Codex must not implement any reviewed Wave 1 control. If Codex becomes ineligible for a review scope, use Claude Code only if Claude is untouched by that scope; if neither eligible runtime is independent, stop and request Gerso's decision.
 - **Mode:** Read-only review after the relevant implementation handoffs return.
 - **Dependencies:** PH1-ARC-001, PH1-CLD-002, PH1-SHI-001, and PH1-SEN-001 outputs, reviewed incrementally or as one bounded evidence set.
 - **Scope:** Security-document correctness, repository/CI controls, Mode A trust-boundary policy, and platform-design controls. This is not WP-15 and cannot grant release approval.
 - **Required evidence:** control-by-control verdict, implementation-runtime eligibility statement, findings with severity, evidence references, and required remediation/re-review.
 - **Review:** Nova validates independence and evidence.
-- **Human gate:** None; findings may block package acceptance. Native Hermes Sentinel remains reserved/preferred for WP-15.
+- **Human gate:** None; findings may block package acceptance. WP-15 must use an untouched Claude Code or Codex runtime carrying Sentinel rules; Hermes is prohibited.
 
 ### PH1-COD-001 — Independent Ledger review of WP-11 value fidelity
 
@@ -119,7 +125,7 @@ The worktrees isolate changes. File ownership is also constrained to reduce merg
 - The active orchestrator is the final integrator.
 - Codex is reserved from Wave 1 implementation if it is to remain the Sentinel and Ledger review fallback.
 - A runtime that implemented a reviewed control cannot approve it in a new session.
-- Native Hermes Sentinel is not consumed by default in Wave 1 and remains preferred for WP-15.
+- Hermes is prohibited for WP-15. Preserve an untouched Claude Code or Codex runtime for independent Sentinel validation; if neither remains eligible, stop at the gate and ask Gerso.
 
 ## Dispatch gate
 

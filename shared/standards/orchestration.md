@@ -18,15 +18,15 @@ Nova is the primary orchestrator role.
 
 ## Active-orchestrator compatibility
 
-Pi and Nova/Hermes may both act as the active Ninjatronics orchestrator. Unless
-a statement explicitly requires a runtime-specific identity, existing references
-to "Nova" mean the orchestrator role and apply equally to whichever supported
-harness is active.
+"Nova" names the orchestrator role, not an execution runtime. The active
+orchestrator must follow the same routing, assignment, evidence, review,
+persistence, approval, and closure obligations. Changing supported harnesses
+does not change project state: Git and the Ninjatronics filesystem artifacts
+remain authoritative.
 
-The active orchestrator must follow the same routing, assignment, evidence,
-review, persistence, approval, and closure obligations. Changing harnesses does
-not change project state: Git and the Ninjatronics filesystem artifacts remain
-authoritative.
+Hermes is prohibited as an execution runtime. It must not be probed, tested,
+dispatched, retried, or used as a fallback. Only Claude Code and Codex may
+execute specialist roles.
 
 The active orchestrator coordinates work but does not automatically assume the responsibilities of Shinobi, Sentinel, Archivist, Claude Code, or Codex.
 
@@ -42,12 +42,17 @@ Gerso owns final human approval for material production, security, compliance, f
 
 Nova must not silently perform specialist work merely because delegation is inconvenient.
 
-When a specialist is unavailable, Nova may propose a fallback runtime, but it must clearly disclose:
+When a specialist role needs an execution runtime, Nova may assign it only to
+Claude Code or Codex and must clearly disclose:
 
-- Which specialist role is being simulated
-- Which runtime is performing the work
-- Why the fallback is necessary
+- Which specialist role is being carried
+- Whether Claude Code or Codex is performing the work
+- Why that eligible runtime was selected
 - What independent review is still required
+
+Hermes is never an eligible fallback. If neither Claude Code nor Codex can
+satisfy the role, evidence, or independence requirement, Nova must stop and ask
+Gerso rather than weaken the gate.
 
 ---
 

@@ -140,7 +140,7 @@ If Gerso approves all three:
 4. Dispatch PH1-SEN-002 and PH1-COD-001 as separate read-only assignments. They may run concurrently because they have distinct review scopes and no file modification authority.
 5. Validate both handoffs and stop at any remediation or human gate.
 
-Native Hermes Sentinel remains conserved for WP-15/high-value release security review. No Tranche 2 assignment has been created or dispatched by this proposal.
+Current runtime policy prohibits Hermes for WP-15 or any other execution. Preserve an untouched Claude Code or Codex runtime for high-value release security review; if neither remains eligible, stop and request Gerso's decision. No Tranche 2 assignment was created or dispatched by this proposal.
 
 ## 8. Open gates and retained risks
 

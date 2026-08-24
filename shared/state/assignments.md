@@ -366,7 +366,7 @@ with bounded, routable work packages.
 | Reviewer | `Active orchestrator` |
 | Review status | `Passed with findings` |
 | Review artifact | `shared/handoffs/PH1-CLD-001/validation.md` |
-| Routing reassessment | `shared/handoffs/PH1-CLD-001/routing-reassessment.md` — G1 and first-wave decisions approved by Gerso on 2026-08-23 |
+| Routing reassessment | `shared/handoffs/PH1-CLD-001/routing-reassessment.md` — G1 and first-wave decisions approved by Gerso on 2026-08-23; runtime routes reconciled to current Claude Code/Codex-only policy |
 | Wave 1 proposal | `shared/handoffs/PH1-CLD-001/first-wave-proposal.md` — Tranche 1 executed; Tranche 2 remains unapproved |
 | Tranche 1 result | `shared/handoffs/PH1-CLD-001/tranche-1-results.md` |
 | Critical findings open | `0` |
@@ -390,8 +390,8 @@ with bounded, routable work packages.
 - Source contradictions may require explicit resolution before implementation.
 - Financial correctness ownership must remain explicit in package routing.
 - The Ledger fallback is approved with independent Claude/Codex authorship-review separation; lack of a native Ledger runtime is not itself a role blocker.
-- Earlier Sentinel fallbacks are approved only when the fallback runtime implemented none of the controls it reviews; native Hermes Sentinel remains preferred for WP-15.
-- Claude/Codex Shinobi fallback and Claude Archivist fallback are approved under the disclosure and domain-rule conditions in the reassessment.
+- Sentinel review must use Claude Code or Codex carrying Sentinel rules, and the selected runtime must have implemented none of the controls in its review scope. Hermes is prohibited for WP-15 and every other assignment; if neither eligible runtime remains independent, stop and request Gerso's decision.
+- Claude Code and Codex may carry Shinobi or Archivist roles under the disclosure, domain-rule, and independence conditions in the reassessment.
 - D-05, DO-06, D-02/G4 Mode A, and D-04 design-only treatment are approved and persisted.
 - G2, D-01/G3, D-03, D-06, D-07/G6, and resource/spend approval at G5 remain pending at their existing gates.
 - Tranche 1 and PH1-SEN-001 are integrated and validated. PH1-SEN-002 and PH1-COD-001 remain undispatched pending Gerso's final approval.

@@ -8,15 +8,16 @@ Nova remains responsible for task definition, routing, coordination, review, and
 
 ## Active-orchestrator compatibility
 
-Pi and Nova/Hermes may both act as the active Ninjatronics orchestrator.
-Unless runtime identity is explicitly relevant, "Nova" in this policy names the
-orchestrator role rather than a specific AI harness. The active harness assumes
-all Nova routing, coordination, validation, persistence, escalation, and final
-synthesis obligations.
+"Nova" in this policy names the orchestrator role rather than an execution
+runtime. The active supported harness assumes all Nova routing, coordination,
+validation, persistence, escalation, and final synthesis obligations.
 
 Harness conversation state is never authoritative. Git and the persisted
-Ninjatronics filesystem artifacts are the source of truth across handoffs
-between Pi and Nova/Hermes.
+Ninjatronics filesystem artifacts are the source of truth across handoffs.
+
+Hermes is prohibited as an execution runtime. Do not probe, test, dispatch,
+retry, or fall back to Hermes. Only Claude Code and Codex may execute specialist
+roles.
 
 ## Core rule
 
@@ -227,45 +228,37 @@ Herdr answers:
 
 > How does Nova communicate with and coordinate that agent?
 
-Sentinel and Archivist are available as real named Hermes profiles launched
-through Herdr. Nova routes to them using the dispatcher, NOT delegate_task:
+Specialist roles are carried by an eligible execution runtime:
 
-- Security / compliance / risk / hardening review → `sentinel` profile.
-- Documentation / evidence / decision records / knowledge management →
-  `archivist` profile.
+- Broad security, compliance, risk, architecture, or documentation work:
+  normally Claude Code carrying the named specialist role.
+- Bounded implementation or independent review: normally Codex carrying the
+  named specialist role.
+- Independence is scope-specific. A runtime that implemented a reviewed control
+  cannot independently approve that control, and a new session of the same
+  runtime does not restore independence.
 
-Invocation (see `shared/standards/specialist-transport.md` and
-`docs/runbooks/specialist-dispatch.md`):
+Hermes specialist profiles and `scripts/dispatch-specialist.sh` are retired as
+execution paths. `shared/standards/specialist-transport.md` and
+`docs/runbooks/specialist-dispatch.md` are retained only as historical transport
+evidence and must not be followed for new work.
 
-```bash
-scripts/dispatch-specialist.sh \
-  --assignment <ID> \
-  --profile <sentinel|archivist> \
-  --prompt-file shared/handoffs/<ID>/assignment.md \
-  --timeout <seconds>
-```
+Nova's obligations when routing to a specialist are:
 
-Nova's obligations when routing to a specialist:
+1. Write the bounded assignment using `shared/templates/assignment.md`.
+2. Select Claude Code or Codex and record the specialist role carried by that
+   runtime.
+3. Dispatch through Herdr to the selected eligible runtime in an isolated
+   worktree or non-overlapping read-only scope.
+4. Persist assignment, transport, handoff, and validation artifacts under
+   `shared/handoffs/<ID>/`.
+5. Record Herdr identifiers, runtime identity, status, and independence evidence
+   in the assignment ledger.
+6. Validate scope, evidence, and runtime eligibility before advancing status.
 
-1. Write the assignment (per `shared/templates/assignment.md`) to the
-   prompt-file; the dispatcher persists a copy to `shared/handoffs/<ID>/`.
-2. Invoke the dispatcher. Consume the returned artifact at
-   `shared/handoffs/<ID>/result.md` (specialist-handoff format).
-3. Record the real Herdr identifiers (pane/workspace/tab/terminal), exit
-   status, and identity evidence from `shared/handoffs/<ID>/transport.json`
-   into the assignment ledger. A dispatch is not "dispatched" in the ledger
-   without this transport evidence.
-4. Validate the result (evidence real, markers clean, identity confirmed)
-   before advancing status. A nonzero dispatcher exit is a FAILED transport,
-   not a completed assignment.
-
-delegate_task is an EXPLICITLY DISCLOSED EMERGENCY FALLBACK ONLY. Use it for a
-specialist role solely when a real Herdr dispatch fails, and only after the
-real failure (exit code, stderr, agent/session state, transcript reference) is
-recorded in `transport.json` and the ledger. Any such fallback must be labeled
-in the ledger and the final report with: role simulated, runtime used, reason,
-and remaining independent review. A successful specialist run never uses
-delegate_task.
+If neither Claude Code nor Codex can satisfy the required role, evidence, or
+independence requirements, stop and request Gerso's approval. Do not probe,
+test, dispatch, retry, or fall back to Hermes, and do not weaken the review gate.
 
 ## Parallel work rules
 

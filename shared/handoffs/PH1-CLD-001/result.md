@@ -6,6 +6,12 @@
 **Mode:** Strictly read-only analysis. No file in Zaifu or Ninjatronics was created, modified, or deleted.
 **Recommended next owner:** Active orchestrator (validation and synthesis) → Gerso (plan approval)
 
+> **Current runtime-policy supersession (2026-08-23):** Historical analysis and
+> execution evidence in this handoff remain unchanged. Prospective runtime routes
+> are governed by `APPEND_SYSTEM.md`: Hermes is prohibited and must not be probed,
+> tested, dispatched, retried, or used as a fallback. Only Claude Code and Codex
+> may execute specialist roles.
+
 ---
 
 ## 1. Executive summary
@@ -1031,12 +1037,12 @@ producer must have returned its package. Blocks the release gate.
 mapping each control to the artifact that proves it; reproduction commands or
 transcripts for the checks Sentinel performed directly.
 
-**Owner / runtime.** **Sentinel** — dispatched to the real `sentinel` Hermes
-profile via `scripts/dispatch-specialist.sh`, per `agent-routing.md`; **not**
-`delegate_task`, which is a disclosed emergency fallback only. **Codex** is
-recommended as an independent second reviewer for bounded control verification
-(`agent-routing.md`: "performing an independent second review"), but Codex must
-not be the sole validator of any ADR-024 control.
+**Owner / runtime.** **Sentinel** — carried by an untouched **Claude Code** or
+**Codex** runtime that implemented none of the controls in its review scope. The
+runtime allocation must be fixed before implementation consumes reviewer
+eligibility. If neither eligible runtime remains independent, stop and request
+Gerso's decision rather than weakening ADR-024. Hermes and `delegate_task` are
+not eligible execution or fallback routes.
 **Reviewer.** Nova validates that evidence is real and identity is confirmed
 before advancing status.
 **Human gate.** **G6** — Gerso grants or withholds production release approval on
@@ -1228,15 +1234,15 @@ validating a clearly defined change**.
 | WP-12 | Koban + Sentinel | **Claude Code** | Provider abstraction, injection surface, and the fail-closed egress broker are design-heavy and span components. |
 | WP-13 | Interface | **Claude Code** | Many components and states; explanation and accessibility cut across all of them. |
 | WP-14 | Shinobi | **Claude Code** design, **Codex** bounded modules | IaC topology and control placement need design; individual modules are bounded. |
-| WP-15 | **Sentinel** (real Hermes profile via dispatcher) | Sentinel; **Codex** as independent second reviewer | ADR-024 requires independence. Codex fits "performing an independent second review" but must not be the sole validator of any ADR-024 control. |
+| WP-15 | **Sentinel** | Untouched **Codex** or **Claude Code** carrying Sentinel rules | ADR-024 requires scope-specific independence. Use a runtime that implemented none of the reviewed controls; if neither is eligible, stop and request Gerso's decision. |
 | WP-16 | Nova + Archivist | **Codex** for instrumentation; study is human work | Instrumentation is a bounded patch; moderated usability research has no runtime. |
 
-**Standing constraint.** Per `agent-routing.md`, WP-15 must be dispatched to the
-real `sentinel` Hermes profile through `scripts/dispatch-specialist.sh` with
-transport evidence recorded in `transport.json` and the ledger. `delegate_task`
-is a disclosed emergency fallback only, and a fallback would have to be labeled
-with role simulated, runtime used, reason, and remaining independent review. See
-Escalation E-04.
+**Standing constraint.** WP-15 may be executed only by Claude Code or Codex
+carrying Sentinel rules, with transport and independence evidence recorded in
+`transport.json` and the ledger. The selected runtime must not have implemented
+any control in its review scope. Hermes must not be probed, tested, dispatched,
+retried, or used as a fallback. If neither eligible runtime remains independent,
+stop and request Gerso's decision. See Escalation E-04.
 
 ---
 

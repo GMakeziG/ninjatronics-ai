@@ -1,6 +1,12 @@
-# Specialist Transport Standard (Nova → Herdr → Hermes specialist)
+# Retired Specialist Transport Standard (historical evidence only)
 
-## Purpose
+> **Non-operative as of 2026-08-23.** Hermes is prohibited as an execution
+> runtime. Do not probe, test, dispatch, retry, or fall back to Hermes. Only
+> Claude Code and Codex may execute specialist roles. Every command and
+> imperative below documents the retired transport and must not be used for new
+> work.
+
+## Historical purpose
 
 This standard defines how Nova dispatches an assignment to a real named Hermes
 specialist profile (initially `sentinel` and `archivist`) through Herdr, waits
