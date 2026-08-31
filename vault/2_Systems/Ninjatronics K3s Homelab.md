@@ -12,7 +12,7 @@ tags:
   - openbao
   - external-secrets
 created: 2026-08-30
-updated: 2026-08-30
+updated: 2026-08-31
 ---
 
 # Ninjatronics K3s Homelab
@@ -80,6 +80,7 @@ Internet -> Cloudflare -> Cloudflare Tunnel (homelab-k3s) -> cloudflared
 ## Deployed applications
 
 - [[Forgejo]] — self-hosted Git, `git.ninjatronics.io`
+- [[Wallabag]] — read-it-later, `wallabag.ninjatronics.io`
 - cloudflared — Cloudflare Tunnel daemon (namespace: platform)
 - Other services: draw, draw-test, linkding, qr, grafana, audiobookshelf,
   n8n (all via cloudflared routes)
