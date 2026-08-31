@@ -1,0 +1,166 @@
+# Assignment: LAB-CAL-SHI-002
+
+## Assignment ID
+LAB-CAL-SHI-002
+
+## Owner
+Shinobi (Codex runtime via Herdr)
+
+## Requested by
+Nova
+
+## Priority
+Normal
+
+## Objective
+Implement the complete internal-only Calibre GitOps deployment in /home/gerso/src/lab. Gerso approved Option B: a Ninjatronics-owned minimal Calibre image. Build the image, create all Kubernetes manifests following the repo's base+production overlay pattern, validate with kubectl kustomize, commit logically, and reconcile through Flux. Internal deployment only — NO public exposure.
+
+## Environment
+- Repo: /home/gerso/src/lab (GitOps, FluxCD, k3s)
+- PATH: export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+- Tools: kubectl, flux, docker, git (all via Linuxbrew PATH)
+- Nodes: zion (control plane), samson, niner (workers)
+- StorageClass: local-path (RWO, WaitForFirstConsumer, reclaimPolicy: Delete)
+- Ingress: traefik, cert-manager, letsencrypt-production-cloudflare issuer
+- Secrets: OpenBao + External Secrets Operator (ClusterSecretStore: openbao, path: secret/apps/<app>)
+- Flux tracks branch: main — commits to main reconcile automatically
+
+## Approved Architecture
+- Dedicated namespace: calibre
+- Base + production overlay Kustomize pattern (study kubernetes/apps/base/audiobookshelf/ and kubernetes/apps/production/wallabag/ for patterns)
+- PVCs: calibre-config (2Gi), calibre-library (100Gi), local-path, RWO
+- Node placement: nodeSelector kubernetes.io/hostname: niner
+- Strategy: Recreate (single replica, RWO storage)
+- Security context: runAsNonRoot true, runAsUser 10001, runAsGroup 10001, fsGroup 10001, seccompProfile RuntimeDefault, allowPrivilegeEscalation false, capabilities drop ALL
+- Service: ClusterIP, port 8080
+- Auth: calibre-server --enable-auth --userdb
+- Secrets via OpenBao at secret/apps/calibre + ExternalSecret in production overlay
+- Ingress: internal hostname only (e.g. calibre.internal.ninjatronics.io or calibre.local), NO .ninjatronics.io public hostname, NO Cloudflare Tunnel route
+
+## Image Requirements (Option B — Ninjatronics-owned minimal)
+- Dockerfile in the repo (e.g. kubernetes/apps/base/calibre/image/ or a top-level calibre-image/ directory)
+- Debian trixie-slim base pinned by digest
+- Official Calibre binary, version pinned (find the latest stable release)
+- Downloaded tarball SHA-256 verified during build
+- Non-root UID/GID 10001:10001
+- calibre-server only — NO desktop, VNC, X11, Wayland, terminal
+- Port 8080 only
+- Build the image with docker, tag it (e.g. ghcr.io/ninjatronics/calibre:<version> or localhost/calibre:<version> for local k3s)
+- Load into k3s if no registry is available (docker save | k3s ctr images import, or k3s image import)
+
+## Files to Create
+
+1. Image build assets:
+   - Dockerfile (or similar) with pinned base + SHA-256 verification
+   - Build script if needed
+
+2. Base (kubernetes/apps/base/calibre/):
+   - kustomization.yaml (resources: configmap.yaml, pvc.yaml, deployment.yaml, service.yaml, secret.example.yaml)
+   - configmap.yaml (if needed for calibre-server config)
+   - deployment.yaml (image, securityContext, probes, resources, volumes, envFrom)
+   - service.yaml (ClusterIP, port 8080)
+   - pvc.yaml (calibre-config 2Gi, calibre-library 100Gi, local-path, RWO)
+   - secret.example.yaml (document expected secret keys without values)
+
+3. Production overlay (kubernetes/apps/production/calibre/):
+   - kustomization.yaml (namespace: calibre, resources: ../../base/calibre, external-secrets, ingress.yaml)
+   - ingress.yaml (internal hostname, traefik, cert-manager TLS)
+   - external-secrets/kustomization.yaml
+   - external-secrets/calibre-secret.yaml (ExternalSecret referencing ClusterSecretStore: openbao, path: apps/calibre)
+
+4. Namespace (kubernetes/namespaces/calibre.yaml) + add to kubernetes/namespaces/kustomization.yaml
+
+5. Aggregation: add calibre to kubernetes/apps/production/kustomization.yaml
+
+6. Runbook: docs/calibre-runbook.md (deployment, access, backup, upgrade, rollback notes)
+
+## Validation Required
+1. kubectl kustomize kubernetes/apps/base/calibre/ — must succeed
+2. kubectl kustomize kubernetes/apps/production/calibre/ — must succeed
+3. kubectl kustomize kubernetes/namespaces/ — must succeed (with calibre.yaml added)
+4. kubectl kustomize kubernetes/apps/production/ — must succeed (with calibre added)
+5. Inspect rendered manifests — verify security context, port, nodeSelector, PVC sizes
+6. If image build succeeds and k3s is accessible: verify pod reaches Running, PVCs Bound, service reachable on port 8080
+7. No destructive PVC operations
+
+## Constraints
+- Follow existing repo patterns exactly (study audiobookshelf, wallabag, forgejo overlays)
+- No plaintext secrets in Git — use OpenBao + ESO
+- Do NOT create Cloudflare DNS, cloudflared routes, or Cloudflare Access — internal only
+- Do NOT use kubectl apply — Flux reconciles from Git
+- Do NOT push to remote — commit locally only
+- Set git identity to match existing commits if needed: git config user.name and user.email locally
+- If OpenBao is accessible: create the secret at secret/apps/calibre with keys for calibre auth (username, password). If you need actual credential VALUES, STOP and escalate — do not invent credentials.
+- If OpenBao is NOT accessible: document the exact bao commands for Gerso to run
+- Do NOT perform destructive operations (volume deletion, force recreation of existing resources)
+- If any material deviation from the approved architecture is needed, STOP and escalate
+
+## Escalation Conditions
+- If calibre-server cannot run headless in the minimal image, escalate
+- If OpenBao credential values are needed and you cannot set them without inventing them, escalate
+- If the image cannot be built or loaded into k3s, escalate with the specific error
+- If any security deviation from the approved architecture is needed, escalate
+- If k3s/Flux is not accessible for runtime validation, report what was validated vs what remains
+
+## Completion Criteria
+- Dockerfile exists with pinned base digest and SHA-256-verified Calibre
+- All Kubernetes manifests exist following base+production overlay pattern
+- kubectl kustomize passes for all layers
+- Security context matches approved architecture
+- Port 8080 only
+- No Cloudflare or public exposure configuration
+- OpenBao secret created or documented for Gerso
+- Git commit(s) created locally (not pushed)
+- Image built and loaded into k3s (or documented if not possible)
+
+## Recommended Next Owner
+Sentinel (LAB-CAL-SEN-002 — security review of actual deployed manifests)
+
+## Response Format
+Write your final response between these exact markers:
+
+<<<RESULT:LAB-CAL-SHI-002>>>
+# Specialist Handoff
+
+## Assignment ID
+LAB-CAL-SHI-002
+
+## Status
+(Complete / Complete with findings / Blocked / Requires clarification / Failed)
+
+## Objective
+(Restate briefly)
+
+## Scope reviewed
+(What was examined or changed)
+
+## Assumptions
+(List anything not independently verified)
+
+## Work performed
+(Summarize the implementation steps)
+
+## Findings
+(Conclusions and observations)
+
+## Deliverables
+(List all files created, image built, commits made)
+
+## Validation
+(Tests and checks performed with results)
+
+## Evidence
+(Commands run, paths, commit IDs, key output)
+
+## Risks
+(Known concerns)
+
+## Outstanding work
+(Anything incomplete or deferred)
+
+## Escalations
+(Decisions requiring Nova or Gerso — especially OpenBao credentials)
+
+## Recommended next owner
+Sentinel (LAB-CAL-SEN-002)
+<<<END:LAB-CAL-SHI-002>>>

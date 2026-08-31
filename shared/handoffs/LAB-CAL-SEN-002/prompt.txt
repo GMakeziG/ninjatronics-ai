@@ -1,0 +1,189 @@
+# Assignment: LAB-CAL-SEN-002
+
+## Assignment ID
+LAB-CAL-SEN-002
+
+## Owner
+Sentinel (Codex runtime via Herdr)
+
+## Requested by
+Nova
+
+## Priority
+Normal
+
+## Objective
+Perform an independent security review of the ACTUAL deployed Calibre GitOps manifests and live runtime evidence. Review the real Kubernetes resources in the cluster, not just the Git manifests. Report findings graded by severity.
+
+## Context
+Calibre has been deployed internally (no public exposure) in a Flux/k3s homelab. The deployment uses a Ninjatronics-owned minimal container image built from Debian trixie-slim with the official Calibre binary. Phase 1 implementation is complete and validated.
+
+- Repo: /home/gerso/src/lab
+- PATH: export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+- Namespace: calibre
+- Image: ghcr.io/gmakezig/calibre-server:9.14.0@sha256:429bb900368ea140d7d0ecbd6d3cee5210dc701f92783f04feec18995e39013d
+- Node: niner
+- Flux revision: main@sha1:f5d810a9
+- Pod is Running/Ready
+- ExternalSecret synced from OpenBao (secret/apps/calibre)
+- PVCs Bound (calibre-config 2Gi, calibre-library 100Gi, local-path)
+- Service ClusterIP on port 8080
+- Ingress: calibre.internal (internal only, traefik, cert-manager TLS)
+- Authentication enabled (calibre-server --enable-auth --userdb)
+- No Cloudflare DNS, cloudflared route, or public exposure configured
+
+## Scope
+Review these security dimensions against the ACTUAL deployed state:
+
+1. Container image security:
+   - Dockerfile at containers/calibre/Dockerfile
+   - Base image pinned by digest
+   - Calibre tarball SHA-256 verified
+   - Non-root runtime (UID 10001)
+   - No desktop/VNC/X11/Wayland services
+   - Minimal attack surface
+
+2. Kubernetes security context:
+   - runAsNonRoot, runAsUser, runAsGroup, fsGroup
+   - seccompProfile RuntimeDefault
+   - allowPrivilegeEscalation false
+   - capabilities drop ALL
+   - No hostPath, hostPID, hostIPC, hostNetwork
+
+3. Network security:
+   - ClusterIP only (no LoadBalancer/NodePort)
+   - Port 8080 only
+   - No public exposure (no Cloudflare DNS, no cloudflared route, no .ninjatronics.io hostname)
+   - Ingress is internal only (calibre.internal)
+
+4. Secret management:
+   - ExternalSecret synced from OpenBao
+   - No plaintext secrets in Git
+   - Secret keys match expected pattern
+   - OpenBao path: secret/apps/calibre
+
+5. Storage:
+   - PVCs use local-path (RWO)
+   - No hostPath mounts
+   - PVC sizes appropriate (config 2Gi, library 100Gi)
+
+6. GitOps integrity:
+   - Flux reconciled to the correct revision
+   - No manual kubectl apply overrides
+   - Manifests match between Git and cluster
+
+7. Authentication:
+   - calibre-server --enable-auth enabled
+   --userdb configured
+   - Unauthenticated access to protected endpoints returns 401
+
+## Validation Commands to Run
+```bash
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+
+# Review the actual deployed manifests
+kubectl get deployment -n calibre calibre -o yaml
+kubectl get pod -n calibre -l app.kubernetes.io/name=calibre -o yaml
+kubectl get service -n calibre -o yaml
+kubectl get ingress -n calibre -o yaml
+kubectl get pvc -n calibre -o yaml
+kubectl get externalsecret -n calibre -o yaml
+kubectl get secret -n calibre -o jsonpath='{.items[*].type}'  # don't print values
+
+# Check for any cloudflared routes
+kubectl get configmap -n platform cloudflared-config -o yaml 2>/dev/null | grep -i calibre
+
+# Verify no public DNS exists
+kubectl get ingress -A | grep -i calibre
+
+# Check the Dockerfile
+cat containers/calibre/Dockerfile
+
+# Verify the entrypoint
+cat containers/calibre/entrypoint.sh
+
+# Check pod security context
+kubectl get pod -n calibre -l app.kubernetes.io/name=calibre -o jsonpath='{.items[0].spec.securityContext}'
+kubectl get pod -n calibre -l app.kubernetes.io/name=calibre -o jsonpath='{.items[0].spec.containers[0].securityContext}'
+
+# Verify non-root execution
+kubectl exec -n calibre -l app.kubernetes.io/name=calibre -- id
+
+# Check authentication enforcement
+kubectl port-forward -n calibre svc/calibre 28080:8080 &
+sleep 3
+curl -s -o /dev/null -w "%{http_code}" http://localhost:28080/opds
+curl -s -o /dev/null -w "%{http_code}" -u wronguser:wrongpass http://localhost:28080/opds
+```
+
+## Constraints
+- READ-ONLY review: do NOT modify any manifests, resources, or configuration
+- Do NOT print secret values, credentials, or tokens
+- Do NOT create, update, or delete any Kubernetes resources
+- Do NOT modify Git state
+- Do NOT expose Calibre publicly
+- Do NOT create Cloudflare DNS, cloudflared routes, or Cloudflare Access
+
+## Evidence Required
+- Commands executed and their output
+- Security findings graded: Blocker / High / Medium / Low / Informational
+- Specific file paths and resource references
+- PASS / PASS WITH NOTES / FAIL overall verdict
+
+## Completion Criteria
+- All 7 security dimensions reviewed
+- Findings graded by severity
+- Overall verdict (PASS / PASS WITH NOTES / FAIL)
+- No material issues or clear remediation path for any found
+
+## Recommended Next Owner
+Nova (for final synthesis and Gerso approval)
+
+## Response Format
+Write your final response between these exact markers:
+
+<<<RESULT:LAB-CAL-SEN-002>>>
+# Specialist Handoff
+
+## Assignment ID
+LAB-CAL-SEN-002
+
+## Status
+(Complete / Complete with findings / Blocked / Requires clarification / Failed)
+
+## Objective
+(Restate briefly)
+
+## Scope reviewed
+(What was examined)
+
+## Assumptions
+(List anything not independently verified)
+
+## Work performed
+(Summarize the review)
+
+## Findings
+(Security findings graded by severity)
+
+## Deliverables
+(Review report)
+
+## Validation
+(Checks performed with results)
+
+## Evidence
+(Commands, paths, output)
+
+## Risks
+(Security concerns identified)
+
+## Outstanding work
+(Any remediation needed)
+
+## Escalations
+(Decisions requiring Nova or Gerso)
+
+## Recommended next owner
+Nova
+<<<END:LAB-CAL-SEN-002>>>

@@ -81,6 +81,7 @@ Internet -> Cloudflare -> Cloudflare Tunnel (homelab-k3s) -> cloudflared
 
 - [[Forgejo]] — self-hosted Git, `git.ninjatronics.io`
 - [[Wallabag]] — read-it-later, `wallabag.ninjatronics.io`
+- [[Calibre]] — ebook content server, `calibre.ninjatronics.io`
 - cloudflared — Cloudflare Tunnel daemon (namespace: platform)
 - Other services: draw, draw-test, linkding, qr, grafana, audiobookshelf,
   n8n (all via cloudflared routes)

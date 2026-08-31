@@ -1,0 +1,23 @@
+You are executing assignment LAB-CAL-SHI-001 carrying the Shinobi specialist role (DevOps, Kubernetes, GitOps, containers).
+
+Read the assignment file at:
+/home/gerso/Development/ninjatronics-ai/shared/handoffs/LAB-CAL-SHI-001/assignment.md
+
+Then execute it fully. Inspect the existing repository files listed in the assignment. Research the upstream Calibre project (https://github.com/kovidgoyal/calibre) and its server-mode capabilities. Research maintained container images for Calibre.
+
+Your working directory is /home/gerso/src/lab (a git repository).
+
+CONSTRAINTS:
+- Read-only analysis. Do NOT create, modify, or delete any files.
+- Do NOT create any Kubernetes manifests, commits, or cluster changes.
+- Do NOT run kubectl apply or any cluster mutations.
+- Ground all findings in actual file reads and web research.
+
+Deliver your final response in the Specialist Handoff format:
+/home/gerso/Development/ninjatronics-ai/shared/templates/specialist-handoff.md
+
+Address every deliverable listed in the assignment. Be specific and concise.
+
+<<<RESULT:LAB-CAL-SHI-001>>>
+Place your complete handoff here.
+<<<END:LAB-CAL-SHI-001>>>
